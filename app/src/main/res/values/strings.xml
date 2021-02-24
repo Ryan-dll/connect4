@@ -2,4 +2,6 @@
     <string name="app_name">Connect4</string>
     <string name="game_start_button">Begin Game!</string>
     <string name="game_desc">Sparty Connect 4</string>
+    <string name="game_end_button">End Game</string>
+    <string name="test">Test To Make Sure Game Cycles</string>
 </resources>

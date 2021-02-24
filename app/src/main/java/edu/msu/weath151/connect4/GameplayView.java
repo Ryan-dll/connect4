@@ -2,6 +2,7 @@ package edu.msu.weath151.connect4;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -10,6 +11,16 @@ import android.view.View;
  * Custom view class for Connect-4 board
  */
 public class GameplayView extends View {
+
+    /**
+     * Paint object for drawing
+     */
+    private Paint paint;
+
+    /**
+     * The actual board
+     */
+    private Board board;
 
     public GameplayView(Context context) {
         super(context);
@@ -27,6 +38,7 @@ public class GameplayView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        board = new Board(getContext());
 
     }
 
@@ -35,6 +47,7 @@ public class GameplayView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        board.onDraw(canvas);
     }
 
 

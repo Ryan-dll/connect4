@@ -9,7 +9,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         app:exampleDimension="24sp"
-        app:exampleDrawable="@android:drawable/ic_menu_add"
+        app:exampleDrawable="@color/black"
         app:exampleString="Hello, GameplayView" />
 
 </FrameLayout>
