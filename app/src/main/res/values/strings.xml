@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Connect4</string>
+    <string name="game_start_button">Begin Game!</string>
+    <string name="game_desc">Sparty Connect 4</string>
 </resources>
