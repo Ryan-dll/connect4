@@ -18,4 +18,6 @@ public class GamePlayActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameEndActivity.class);
         startActivity(intent);
     }
+
+
 }

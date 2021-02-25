@@ -4,12 +4,15 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 public class BoardView extends View {
+
+
 
     private Board board = null;
 
@@ -43,5 +46,9 @@ public class BoardView extends View {
         super.onDraw(canvas);
         board.onDraw(canvas);
     }
+
+
+
+
 
 }

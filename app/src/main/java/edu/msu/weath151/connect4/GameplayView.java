@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 
@@ -16,6 +17,10 @@ public class GameplayView extends View {
      * Paint object for drawing
      */
     private Paint paint;
+
+
+    private Piece piece;
+
 
     /**
      * The actual board
@@ -44,11 +49,19 @@ public class GameplayView extends View {
 
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return piece.onTouchEvent(this, event);
+    }
+
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         board.onDraw(canvas);
     }
+
+
 
 
 }
