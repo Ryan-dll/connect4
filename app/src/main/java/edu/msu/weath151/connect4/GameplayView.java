@@ -52,7 +52,10 @@ public class GameplayView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return piece.onTouchEvent(this, event);
+
+        boolean handled = piece.onTouchEvent(this, event);
+        invalidate();
+        return handled;
     }
 
 

@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -17,7 +16,7 @@ public class Piece {
     /**
      * The size of the puzzle in pixels
      */
-    private int pieceSize;
+    private int gameSize = 1;
 
     /**
      * How much we scale the puzzle pieces
@@ -57,7 +56,7 @@ public class Piece {
 
     public void onDraw(Canvas canvas){
 
-        canvas.drawBitmap(bitmap, 0, 0, paint);
+        canvas.drawBitmap(bitmap, x, y, paint);
     }
 
 
@@ -73,13 +72,15 @@ public class Piece {
         // puzzle.
         //
 
-        float relX = (event.getX() - marginX) / pieceSize;
-        float relY = (event.getY() - marginY) / pieceSize;
+        float relX = (event.getX() - marginX) / gameSize;
+        float relY = (event.getY() - marginY) / gameSize;
 
 
         switch(event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
+                x = (event.getX() - marginX) / gameSize;
+                y = (event.getY() - marginY) / gameSize;
                 return true;
 
             case MotionEvent.ACTION_UP:
@@ -87,6 +88,8 @@ public class Piece {
                 break;
 
             case MotionEvent.ACTION_MOVE:
+                x = (event.getX() - marginX) / gameSize;
+                y = (event.getY() - marginY) / gameSize;
                 break;
         }
 

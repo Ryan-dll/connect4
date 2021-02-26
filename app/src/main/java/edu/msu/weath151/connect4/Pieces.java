@@ -35,5 +35,6 @@ public class Pieces {
         Piece piece = new Piece();
         pieces.add(piece);
     }
+
 }
 
