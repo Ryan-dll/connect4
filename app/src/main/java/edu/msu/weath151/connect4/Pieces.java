@@ -1,6 +1,8 @@
 package edu.msu.weath151.connect4;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class Pieces {
     public Pieces(Context context)
     {
         Piece piece = new Piece(context, R.drawable.spartan_green, 0, 0);
+
         pieces.add(piece);
     }
 
@@ -33,3 +36,4 @@ public class Pieces {
         pieces.add(piece);
     }
 }
+

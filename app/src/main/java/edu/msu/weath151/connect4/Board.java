@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.ArrayList;
+
 public class Board {
 
     /**
@@ -19,15 +21,23 @@ public class Board {
 
     private Pieces pieces = null;
 
+    private ArrayList<Piece> empty_pieces = new ArrayList<Piece>();
+
     public Board()
     {
         init();
     }
 
+
     public Board(Context context){
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(0xffcccccc);
         pieces = new Pieces(context);
+
+
+        empty_pieces.add(new Piece(context, R.drawable.empty_space, 0, 0));
+
+
     }
 
     public void onDraw(Canvas canvas){
@@ -46,11 +56,25 @@ public class Board {
         canvas.drawRect(marginX, marginY,
                 marginX + boardSize, marginY + boardSize, fillPaint);
 
+
         pieces.onDraw(canvas);
+
+
+        for( Piece empty_piece : empty_pieces)
+        {
+            empty_piece.onDraw(canvas);
+        }
+
+
+
+
     }
+
 
     public void init()
     {
         pieces = new Pieces();
     }
+
+
 }

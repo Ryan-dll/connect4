@@ -30,6 +30,7 @@ public class GameplayView extends View {
     public GameplayView(Context context) {
         super(context);
         init(null, 0);
+
     }
 
     public GameplayView(Context context, AttributeSet attrs) {
@@ -44,6 +45,7 @@ public class GameplayView extends View {
 
     private void init(AttributeSet attrs, int defStyle) {
         board = new Board(getContext());
+        piece = new Piece(getContext(), R.drawable.spartan_green, 0, 0);
 
     }
 
@@ -54,11 +56,14 @@ public class GameplayView extends View {
     }
 
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         board.onDraw(canvas);
+        piece.onDraw(canvas);
+
     }
 
 

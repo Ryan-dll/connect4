@@ -10,13 +10,39 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class Piece {
+
+    /**
+     * The size of the puzzle in pixels
+     */
+    private int pieceSize;
+
+    /**
+     * How much we scale the puzzle pieces
+     */
+    private float scaleFactor;
+
+    /**
+     * Left margin in pixels
+     */
+    private int marginX;
+
+    /**
+     * Top margin in pixels
+     */
+    private int marginY;
+
     private Bitmap bitmap = null;
     private Paint paint = new Paint();
 
     float x;
 
     float y;
+
+    public ArrayList<Pieces> pieces = new ArrayList<Pieces>();
+
 
     public Piece(){
         paint.setColor(Color.BLACK);
@@ -34,6 +60,7 @@ public class Piece {
         canvas.drawBitmap(bitmap, 0, 0, paint);
     }
 
+
     /**
      * Handle a touch event from the view.
      * @param view The view that is the source of the touch
@@ -41,16 +68,22 @@ public class Piece {
      * @return true if the touch is handled.
      */
     public boolean onTouchEvent(View view, MotionEvent event) {
+        //
+        // Convert an x,y location to a relative location in the
+        // puzzle.
+        //
+
+        float relX = (event.getX() - marginX) / pieceSize;
+        float relY = (event.getY() - marginY) / pieceSize;
+
 
         switch(event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
-                Log.i("onTouchEvent", "ACTION_DOWN");
                 return true;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                Log.i("onTouchEvent", "ACTION_UP");
                 break;
 
             case MotionEvent.ACTION_MOVE:
@@ -61,5 +94,7 @@ public class Piece {
 
         return false;
     }
+
+
 
 }
