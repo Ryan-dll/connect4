@@ -99,5 +99,11 @@ public class Piece {
     }
 
 
+    public void setLocation(float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
 
 }

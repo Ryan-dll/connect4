@@ -53,9 +53,32 @@ public class GameplayView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
-        boolean handled = piece.onTouchEvent(this, event);
+        //
+        // Get an X y location
+        //
+
+        float relX = event.getX();
+        float relY = event.getY();
+
+        // Handle the touch event
+
+        switch(event.getActionMasked()) {
+
+            case MotionEvent.ACTION_DOWN:
+                piece.setLocation(relX, relY);
+                return true;
+
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                piece.setLocation(relX, relY);
+                break;
+        }
+
         invalidate();
-        return handled;
+        return true;
     }
 
 
