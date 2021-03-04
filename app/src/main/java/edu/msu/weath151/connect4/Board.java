@@ -14,6 +14,12 @@ public class Board {
      */
     final static float SCALE_IN_VIEW = 0.9f;
 
+    private int marginX;
+
+    private int marginY;
+
+    private int boardSize;
+
     /**
      * Paint for filling in the Board
      */
@@ -34,7 +40,6 @@ public class Board {
         fillPaint.setColor(0xffcccccc);
         pieces = new Pieces(context);
 
-
         empty_pieces.add(new Piece(context, R.drawable.empty_space, 0, 0));
 
 
@@ -47,17 +52,14 @@ public class Board {
         // Determine the minimum of the two dimensions
         int minDim = wid < hit ? wid : hit;
 
-        int boardSize = (int)(minDim * SCALE_IN_VIEW);
+        boardSize = (int)(minDim * SCALE_IN_VIEW);
 
         // Compute the margins so we center the puzzle
-        int marginX = (wid - boardSize) / 2;
-        int marginY = (hit - boardSize) / 2;
+        marginX = (wid - boardSize) / 2;
+        marginY = (hit - boardSize) / 2;
 
         canvas.drawRect(marginX, marginY,
                 marginX + boardSize, marginY + boardSize, fillPaint);
-
-
-        pieces.onDraw(canvas);
 
 
         for( Piece empty_piece : empty_pieces)
@@ -65,7 +67,7 @@ public class Board {
             empty_piece.onDraw(canvas);
         }
 
-
+        pieces.onDraw(canvas);
 
 
     }

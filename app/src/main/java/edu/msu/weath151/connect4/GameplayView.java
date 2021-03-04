@@ -57,8 +57,8 @@ public class GameplayView extends View {
         // Get an X y location
         //
 
-        float relX = event.getX();
-        float relY = event.getY();
+        float relX = (event.getX());
+        float relY = (event.getY());
 
         // Handle the touch event
 
