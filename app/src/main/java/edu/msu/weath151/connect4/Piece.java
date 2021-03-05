@@ -36,17 +36,35 @@ public class Piece {
     private Bitmap piece;
     private Paint paint = new Paint();
 
-    float x;
+    private float x;
+    private float y;
 
-    float y;
+    public float getX() {
+        return x;
+    }
 
-    //public ArrayList<Pieces> pieces = new ArrayList<Pieces>();
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+//public ArrayList<Pieces> pieces = new ArrayList<Pieces>();
 
     public Piece(Context context, int id, float x, float y)
     {
         piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.x = x;
         this.y = y;
+    }
+
+    public Bitmap getPiece() {
+        return piece;
     }
 
     public void onDraw(Canvas canvas, int marginX, int marginY,

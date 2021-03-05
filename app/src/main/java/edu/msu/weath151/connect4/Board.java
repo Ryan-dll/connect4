@@ -146,9 +146,6 @@ public class Board {
         marginX = (wid - boardSize) / 2;
         marginY = (hit - boardSize) / 2;
 
-        canvas.drawRect(marginX, marginY,
-                marginX + boardSize, marginY + boardSize, fillPaint);
-
         ReconfigureBoard(canvas,marginX,marginY);
 
         for( ArrayList<BoardGrid> empty_pieces : board_pieces)
@@ -189,7 +186,8 @@ public class Board {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                //return onReleased(view, relX, relY);
+                SnapPiece(relX, relY);
+                view.invalidate();
 
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
@@ -207,6 +205,32 @@ public class Board {
         return false;
     }
 
+    public void SnapPiece(float relX, float relY){
+        for( ArrayList<BoardGrid> empty_pieces : board_pieces)
+        {
+            for (BoardGrid empty_piece : empty_pieces){
+                int wid = empty_piece.getSlot().getWidth();
+
+                float BoardPieceX = empty_piece.getX();
+                float BoardPieceY = empty_piece.getY();
+
+                float PieceX = dragging.getX() * boardSize / scaleFactor;
+                float PieceY = (dragging.getY() * boardSize / scaleFactor);
+                float x = wid/(2f*(boardSize/scaleFactor));
+
+                double Distance = Math.sqrt(Math.pow(Math.abs(PieceX - BoardPieceX), 2) +
+                        Math.pow(Math.abs(PieceY - BoardPieceY), 2));
+                if(Distance < (wid)) {
+
+                    dragging.setLocation((BoardPieceX / (boardSize / scaleFactor)),
+                            (BoardPieceY / (boardSize / scaleFactor)));
+
+                }
+            }
+        }
+        dragging = null;
+    }
+
     /**
      * Handle a touch message. This is when we get an initial touch
      * @param x x location for the touch, relative to the puzzle - 0 to 1 over the puzzle
@@ -216,7 +240,6 @@ public class Board {
     private boolean onTouched(float x, float y) {
 
         // Check each piece to see if it has been hit
-        // We do this in reverse order so we find the pieces in front
         for(int p=pieces.getPieces().size()-1; p>=0;  p--) {
             if(pieces.getPieces().get(p).hit(x, y, boardSize, scaleFactor)) {
                 // We hit a piece

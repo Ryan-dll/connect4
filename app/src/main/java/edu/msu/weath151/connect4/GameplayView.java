@@ -45,7 +45,6 @@ public class GameplayView extends View {
 
     private void init(AttributeSet attrs, int defStyle) {
         board = new Board(getContext(), this);
-        piece = new Piece(getContext(), R.drawable.spartan_green, 0, 0);
 
     }
 
