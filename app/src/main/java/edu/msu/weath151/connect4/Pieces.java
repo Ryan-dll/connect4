@@ -9,11 +9,10 @@ import java.util.ArrayList;
 
 public class Pieces {
 
-    private ArrayList<Piece> pieces = new ArrayList<Piece>();
+    private ArrayList<Piece> pieces = new ArrayList<>();
 
-    public Pieces()
-    {
-        init();
+    public ArrayList<Piece> getPieces() {
+        return pieces;
     }
 
     public Pieces(Context context)
@@ -23,18 +22,11 @@ public class Pieces {
         pieces.add(piece);
     }
 
-    public void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas, int MarginX, int MarginY,int BoardSize, float Scale ) {
         for( Piece piece : pieces)
         {
-            piece.onDraw(canvas);
+            piece.onDraw(canvas,MarginX,MarginY,BoardSize,Scale);
         }
     }
-
-    public void init()
-    {
-        Piece piece = new Piece();
-        pieces.add(piece);
-    }
-
 }
 
