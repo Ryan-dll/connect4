@@ -38,7 +38,7 @@ public class BoardView extends View {
     }
 
     public void init(Context context){
-        board = new Board(context);
+        board = new Board(context, this);
     }
 
     @Override

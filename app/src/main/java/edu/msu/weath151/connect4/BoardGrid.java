@@ -11,15 +11,49 @@ public class BoardGrid {
 
     private int id;
 
-    float x;
+    private float x;
 
-    float y;
+    private float y;
 
-    BoardGrid (Context context, int BoardSize, int id){
-        Slot = BitmapFactory.decodeResource(context.getResources(), id);
+    int boardSize;
+
+    public float getX() {
+        return x;
     }
 
-    public void OnDraw(Canvas canvas) {
+    public void setX(float x) {
+        this.x = x;
+    }
 
+    public float getY() {
+        return y;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    private boolean Taken = false;
+
+    public boolean isTaken() {
+        return Taken;
+    }
+
+    public void setTaken(boolean taken) {
+        Taken = taken;
+    }
+
+    public Bitmap getSlot() {
+        return Slot;
+    }
+
+    BoardGrid (Context context, int id, float x, float y){
+        Slot = BitmapFactory.decodeResource(context.getResources(), id);
+        this.x = x;
+        this.y = y;
+    }
+
+    public void onDraw(Canvas canvas) {
+        canvas.drawBitmap(Slot, x, y, null);
     }
 }
