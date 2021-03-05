@@ -4,4 +4,6 @@
     <string name="game_desc">Sparty Connect 4</string>
     <string name="game_end_button">End Game</string>
     <string name="test">Test To Make Sure Game Cycles</string>
+    <string name="white_piece">White</string>
+    <string name="green_piece">Green</string>
 </resources>
