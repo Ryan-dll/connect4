@@ -79,7 +79,7 @@ public class Piece {
         canvas.scale(scaleFactor, scaleFactor);
 
         // This magic code makes the center of the piece at 0, 0
-        canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
+        //canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
 
         // Draw the bitmap
         canvas.drawBitmap(piece, 0, 0, null);
@@ -115,13 +115,11 @@ public class Piece {
                        int boardSize, float scaleFactor) {
 
         // Make relative to the location and size to the piece size
-        int pX = (int)((testX - x) * boardSize / scaleFactor) +
-                piece.getWidth() / 2;
-        int pY = (int)((testY - y) * boardSize / scaleFactor) +
-                piece.getHeight() / 2;
+        int pX = ((int)((testX - x) * boardSize / scaleFactor));
+        int pY = ((int)((testY - y) * boardSize / scaleFactor));
 
-        if(pX < 0 || pX >= piece.getWidth() ||
-                pY < 0 || pY >= piece.getHeight()) {
+        if(pX < 0 || pX >= (piece.getWidth()*scaleFactor) ||
+                pY < 0 || pY >= (piece.getHeight())*scaleFactor) {
             return false;
         }
 

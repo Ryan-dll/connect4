@@ -182,6 +182,8 @@ public class Board {
             this.FirstDraw = false;
         }
 
+        canvas.restore();
+
     }
 
     /**
@@ -197,8 +199,8 @@ public class Board {
         // puzzle.
         //
 
-        float relX = (event.getX() - marginX) / boardSize;
-        float relY = (event.getY() - marginY) / boardSize;
+        float relX = (event.getX() - marginX) / (boardSize*scaleFactor);
+        float relY = (event.getY() - marginY) / (boardSize*scaleFactor);
 
         switch (event.getActionMasked()) {
 
@@ -262,7 +264,7 @@ public class Board {
 
         // Check each piece to see if it has been hit
         for(int p=pieces.getPieces().size()-1; p>=0;  p--) {
-            if(pieces.getPieces().get(p).hit(x, y, boardSize, scaleFactor)) {
+            if( true /*pieces.getPieces().get(p).hit(x, y, boardSize, scaleFactor*/) {
                 // We hit a piece
                 dragging = pieces.getPieces().get(p);
                 pieces.getPieces().remove(p);
