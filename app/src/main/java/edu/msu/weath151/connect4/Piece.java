@@ -115,11 +115,11 @@ public class Piece {
                        int boardSize, float scaleFactor) {
 
         // Make relative to the location and size to the piece size
-        int pX = ((int)((testX - x) * boardSize / scaleFactor));
-        int pY = ((int)((testY - y) * boardSize / scaleFactor));
+        int pX = ((int)((testX - x) * boardSize ));
+        int pY = ((int)((testY - y) * boardSize ));
 
-        if(pX < 0 || pX >= (piece.getWidth()*scaleFactor) ||
-                pY < 0 || pY >= (piece.getHeight())*scaleFactor) {
+        if(pX < 0 || pX >= (piece.getWidth()) ||
+                pY < 0 || pY >= (piece.getHeight())) {
             return false;
         }
 
