@@ -67,7 +67,7 @@ public class Piece {
         return piece;
     }
 
-    public void onDraw(Canvas canvas, int marginX, int marginY,
+    public void onDraw(Canvas canvas, float marginX, float marginY,
                        int puzzleSize, float scaleFactor){
 
         canvas.save();

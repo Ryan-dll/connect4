@@ -22,7 +22,7 @@ public class Pieces {
         pieces.add(piece);
     }
 
-    public void onDraw(Canvas canvas, int MarginX, int MarginY,int BoardSize, float Scale ) {
+    public void onDraw(Canvas canvas, float MarginX, float MarginY,int BoardSize, float Scale ) {
         for( Piece piece : pieces)
         {
             piece.onDraw(canvas,MarginX,MarginY,BoardSize,Scale);

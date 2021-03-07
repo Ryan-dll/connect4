@@ -16,15 +16,17 @@ public class Board {
      */
     final static float SCALE_IN_VIEW = 0.9f;
 
-    private int marginX;
+    private float marginX;
 
-    private int marginY;
+    private float marginY;
 
     private int boardSize;
 
     private View boardView;
 
     private float scaleFactor;
+
+    private Piece emptyPiece;
 
     /**
      * This variable is set to a piece we are dragging. If
@@ -49,7 +51,7 @@ public class Board {
 
     private Pieces pieces;
 
-    private ArrayList<ArrayList<BoardGrid>> board_pieces = new ArrayList<ArrayList<BoardGrid>>();
+    private ArrayList<ArrayList<Piece>> board_pieces = new ArrayList<ArrayList<Piece>>();
 
     private BoardGrid Grid;
 
@@ -61,15 +63,16 @@ public class Board {
         fillPaint.setColor(0xffcccccc);
         pieces = new Pieces(context);
         this.boardView = view;
+        emptyPiece = new Piece(context, R.drawable.empty_space, 0, 0);
 
         AssembleBoard(context);
     }
 
-    public int getMarginX() {
+    public float getMarginX() {
         return marginX;
     }
 
-    public int getMarginY() {
+    public float getMarginY() {
         return marginY;
     }
 
@@ -81,15 +84,15 @@ public class Board {
         return pieces;
     }
 
-    public ArrayList<ArrayList<BoardGrid>> getBoard_pieces() {
+    public ArrayList<ArrayList<Piece>> getBoard_pieces() {
         return board_pieces;
     }
 
     public void AssembleBoard(Context context) {
         for (int i = 0; i < 7; i++) {
-            ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
+            ArrayList<Piece> column = new ArrayList<Piece>();
             for (int b = 0; b < 6; b++) {
-                BoardGrid BoardPiece = new BoardGrid(context, R.drawable.empty_space, 0, 0);
+                Piece BoardPiece = new Piece(context, R.drawable.empty_space, 0, 0);
                 column.add(BoardPiece);
             }
             board_pieces.add(column);
@@ -98,7 +101,9 @@ public class Board {
 
     public void ReconfigureBoard(Canvas canvas, int MarginX, int MarginY){
         if (FirstDraw) {
-            int wid = board_pieces.get(0).get(0).getSlot().getWidth();
+
+
+            int wid = board_pieces.get(0).get(0).getPiece().getWidth();
 
             // Rows
             for (int i = 0; i < board_pieces.size(); i++) {
@@ -132,30 +137,46 @@ public class Board {
     }
 
     public void onDraw(Canvas canvas){
-        int wid = canvas.getWidth();
-        int hit = canvas.getHeight();
+        float wid = canvas.getWidth();
+        float hit = canvas.getHeight();
 
         // Determine the minimum of the two dimensions
-        int minDim = wid < hit ? wid : hit;
+        float minDim = wid < hit ? wid : hit;
 
         boardSize = (int)(minDim * SCALE_IN_VIEW);
 
-        scaleFactor = 1;
+        // What scale fits both vertically and horizontally?
+        float scaleH = wid/(emptyPiece.getPiece().getWidth()*7);
+        float scaleV = hit/(emptyPiece.getPiece().getHeight()*6);
+
+        // Use smaller
+        scaleFactor = scaleH < scaleV ? scaleH : scaleV;
+
+        // What is the scaled image size?
+        float iWid = scaleFactor * emptyPiece.getPiece().getWidth()*7;
+        float iHit = scaleFactor * emptyPiece.getPiece().getHeight()*6;
 
         // Compute the margins so we center the puzzle
-        marginX = (wid - boardSize) / 2;
-        marginY = (hit - boardSize) / 2;
+        marginX = (wid - iWid) / 2;
+        marginY = (hit - iHit) / 2;
 
-        ReconfigureBoard(canvas,marginX,marginY);
+        // ReconfigureBoard(canvas,marginX,marginY);
 
-        for( ArrayList<BoardGrid> empty_pieces : board_pieces)
+        // Draw the board
+        canvas.save();
+        canvas.translate(marginX, marginY);
+        canvas.scale(scaleFactor, scaleFactor);
+
+        for( int i = 0; i < 7; i++)
         {
-            for (BoardGrid empty_piece : empty_pieces){
-                empty_piece.onDraw(canvas);
+            for (int j = 0; j < 6; j++){
+                emptyPiece.onDraw(canvas, i*emptyPiece.getPiece().getWidth(),
+                        j*emptyPiece.getPiece().getHeight(), boardSize,
+                        1);
             }
         }
 
-        pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
+        pieces.onDraw(canvas, 0, 0, boardSize, 1);
 
         if (FirstDraw) {
             this.FirstDraw = false;
@@ -206,10 +227,10 @@ public class Board {
     }
 
     public void SnapPiece(float relX, float relY){
-        for( ArrayList<BoardGrid> empty_pieces : board_pieces)
+        for( ArrayList<Piece> empty_pieces : board_pieces)
         {
-            for (BoardGrid empty_piece : empty_pieces){
-                int wid = empty_piece.getSlot().getWidth();
+            for (Piece empty_piece : empty_pieces){
+                int wid = empty_piece.getPiece().getWidth();
 
                 float BoardPieceX = empty_piece.getX();
                 float BoardPieceY = empty_piece.getY();
