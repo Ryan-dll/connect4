@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight=".8"
+        android:layout_weight=".65"
         android:fontFamily="@font/krona_one"
         android:gravity="bottom|center_horizontal"
         android:text="@string/game_desc"
@@ -38,7 +38,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".125"
+        android:layout_weight=".15"
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp">
@@ -71,7 +71,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".125"
+        android:layout_weight=".15"
         android:orientation="horizontal"
         android:paddingStart="30dp"
         android:paddingEnd="30dp">

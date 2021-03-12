@@ -9,4 +9,6 @@
     <string name="Player1Txt">Player 1 :</string>
     <string name="Player2Txt">Player 2 :</string>
     <string name="PlayerEnter">(Enter Name)</string>
+    <string name="Player1Turns">Player 1"'"s Turn</string>
+    <string name="Player2Turns">Player 2"'"s Turn</string>
 </resources>

@@ -1,10 +1,12 @@
 package edu.msu.weath151.connect4;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,6 +29,8 @@ public class Board {
     private float scaleFactor;
 
     private Piece emptyPiece;
+
+    private boolean Player1Turn = true;
 
     /**
      * This variable is set to a piece we are dragging. If
@@ -248,6 +252,7 @@ public class Board {
                     dragging.setLocation((BoardPieceX / (boardSize / scaleFactor)),
                             (BoardPieceY / (boardSize / scaleFactor)));
 
+                    Player1Turn = !Player1Turn;
                 }
             }
         }
