@@ -6,4 +6,7 @@
     <string name="test">Test To Make Sure Game Cycles</string>
     <string name="white_piece">White</string>
     <string name="green_piece">Green</string>
+    <string name="Player1Txt">Player 1 :</string>
+    <string name="Player2Txt">Player 2 :</string>
+    <string name="PlayerEnter">(Enter Name)</string>
 </resources>
