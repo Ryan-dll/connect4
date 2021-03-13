@@ -27,13 +27,13 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     public void greenPiece(View view) {
-
     }
 
 
     public void whitePiece(View view) {
 
     }
+
 
 
 }

@@ -2,6 +2,7 @@ package edu.msu.weath151.connect4;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
@@ -29,6 +30,8 @@ public class Board {
     private float scaleFactor;
 
     private Piece emptyPiece;
+    private Piece greenPiece;
+
 
     private boolean Player1Turn = true;
 
@@ -54,13 +57,14 @@ public class Board {
     private Paint fillPaint;
 
     private Pieces pieces;
-
+    private Piece piece;
     private ArrayList<ArrayList<Piece>> board_pieces = new ArrayList<ArrayList<Piece>>();
 
     private BoardGrid Grid;
 
     private boolean FirstDraw = true;
 
+    private Canvas canvas;
 
     public Board(Context context, View view){
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -68,6 +72,8 @@ public class Board {
         pieces = new Pieces(context);
         this.boardView = view;
         emptyPiece = new Piece(context, R.drawable.empty_space, 0, 0);
+        greenPiece = new Piece(context, R.drawable.spartan_green, 0, 0);
+
 
         AssembleBoard(context);
     }
@@ -205,6 +211,9 @@ public class Board {
 
         float relX = (event.getX() ) / (boardSize*scaleFactor);
         float relY = (event.getY() ) / (boardSize*scaleFactor);
+
+        canvas = new Canvas();
+        greenPiece.onDraw(canvas, greenPiece.getPiece().getWidth(), greenPiece.getPiece().getHeight(), boardSize, 1);
 
         switch (event.getActionMasked()) {
 
