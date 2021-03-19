@@ -207,6 +207,7 @@ public class Board {
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
+                boolean ok = isValid();
                 SnapPiece(relX, relY);
                 view.invalidate();
 
@@ -250,6 +251,31 @@ public class Board {
             }
         }
         dragging = null;
+    }
+
+    public boolean isValid() {
+
+        // find row and column of piece
+        // 0,0 for now until snap piece works
+        int row = 0;
+        int column = 0;
+
+        for (int i = 6; i >= column; i--){
+            BoardGrid piece = board_pieces.get(row).get(i);
+            if (!piece.isTaken()){
+                piece.setTaken(true);
+                dropPiece(row, i);
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    private void dropPiece(int row, int column) {
+        BoardGrid piece = board_pieces.get(row).get(column);
+        dragging.setLocation(piece.getX(), piece.getY());
     }
 
     /**
