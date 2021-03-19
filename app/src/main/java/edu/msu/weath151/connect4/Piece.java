@@ -68,7 +68,7 @@ public class Piece {
     }
 
     public void onDraw(Canvas canvas, float marginX, float marginY,
-                       int puzzleSize, float scaleFactor){
+                       float puzzleSize, float scaleFactor){
 
         canvas.save();
 
@@ -112,7 +112,7 @@ public class Piece {
      * @return true if we hit the piece
      */
     public boolean hit(float testX, float testY,
-                       int boardSize, float scaleFactor) {
+                       float boardSize, float scaleFactor) {
 
         // Make relative to the location and size to the piece size
         int pX = ((int)((testX - x) * boardSize ));

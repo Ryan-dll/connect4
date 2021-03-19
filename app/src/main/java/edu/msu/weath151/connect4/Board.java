@@ -23,7 +23,7 @@ public class Board {
 
     private float marginY;
 
-    private int boardSize;
+    private float boardSize;
 
     private View boardView;
 
@@ -88,7 +88,7 @@ public class Board {
         return marginY;
     }
 
-    public int getBoardSize() {
+    public float getBoardSize() {
         return boardSize;
     }
 
@@ -101,11 +101,12 @@ public class Board {
     }
 
     public void AssembleBoard(Context context) {
+        board_pieces = new ArrayList<ArrayList<BoardGrid>>();
         for (int i = 0; i < 7; i++) {
             ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
             BoardGrid.setSlot(context);
             for (int j = 0; j < 6; j++) {
-                BoardGrid BoardPiece = new BoardGrid(i*BoardGrid.getSlot().getWidth(), j*BoardGrid.getSlot().getHeight());
+                BoardGrid BoardPiece = new BoardGrid((i/6f), (j/6f));
                 column.add(BoardPiece);
             }
             board_pieces.add(column);
@@ -140,7 +141,7 @@ public class Board {
         // Determine the minimum of the two dimensions
         float minDim = wid < hit ? wid : hit;
 
-        boardSize = (int)(minDim * SCALE_IN_VIEW);
+        boardSize = minDim;
 
         // What scale fits both vertically and horizontally?
         float scaleH = wid/(emptyPiece.getPiece().getWidth()*7);
@@ -158,26 +159,27 @@ public class Board {
         marginY = (hit - iHit) / 2;
 
         //ReconfigureBoard(canvas,0,0);
+        AssembleBoard(context);
 
         // Draw the board
-        canvas.save();
-        canvas.translate(marginX, marginY);
-        canvas.scale(scaleFactor, scaleFactor);
+        //canvas.save();
+        //canvas.translate(marginX, marginY);
+        //canvas.scale(scaleFactor, scaleFactor);
 
         for( int i = 0; i < 7; i++)
         {
             for (int j = 0; j < 6; j++){
-                board_pieces.get(i).get(j).onDraw(canvas, 0, 0, 1, 1);
+                board_pieces.get(i).get(j).onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
             }
         }
 
-        pieces.onDraw(canvas, 0, 0, boardSize, 1);
+
+
+        pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
 
         if (FirstDraw) {
             this.FirstDraw = false;
         }
-
-        canvas.restore();
 
     }
 
@@ -194,11 +196,8 @@ public class Board {
         // puzzle.
         //
 
-        float relX = (event.getX() ) / (boardSize*scaleFactor);
-        float relY = (event.getY() ) / (boardSize*scaleFactor);
-
-        canvas = new Canvas();
-        greenPiece.onDraw(canvas, greenPiece.getPiece().getWidth(), greenPiece.getPiece().getHeight(), boardSize, 1);
+        float relX = (event.getX() ) / (boardSize) ;
+        float relY = (event.getY() ) / (boardSize) ;
 
         switch (event.getActionMasked()) {
 
@@ -228,27 +227,35 @@ public class Board {
     }
 
     public void SnapPiece(float relX, float relY){
+        float min = 1000f;
+        float minX = 0;
+        float minY = 0;
         for( ArrayList<BoardGrid> empty_pieces : board_pieces)
         {
             for (BoardGrid empty_piece : empty_pieces){
                 int wid = BoardGrid.getSlot().getWidth();
 
-                float BoardPieceX = (empty_piece.getX())/( scaleFactor);
-                float BoardPieceY = empty_piece.getY()/( scaleFactor);
+                float BoardPieceX = empty_piece.getX() + 1/6f;
+                float BoardPieceY = empty_piece.getY() + 1/6f;
 
                 float PieceX = dragging.getX();
                 float PieceY = dragging.getY();
-                float x = wid/((scaleFactor));
+                float x = wid/((2f*boardSize));
 
-                double Distance = Math.sqrt(Math.pow(Math.abs(PieceX - BoardPieceX), 2) +
+                float Distance = (float)Math.sqrt(Math.pow(Math.abs(PieceX - BoardPieceX), 2) +
                         Math.pow(Math.abs(PieceY - BoardPieceY), 2));
-                if(Distance < (wid)) {
+                if(Distance < x && Distance < min) {
 
-                    dragging.setLocation(BoardPieceX ,BoardPieceY );
-
-                    Player1Turn = !Player1Turn;
+                    min = Distance;
+                    minX = BoardPieceX;
+                    minY = BoardPieceY;
                 }
             }
+        }
+        if ((1000f - min) > 500f)
+        {
+            dragging.setLocation(minX, minY);
+            Player1Turn = !Player1Turn;
         }
         dragging = null;
     }

@@ -64,12 +64,12 @@ public class BoardGrid {
 
 
     public void onDraw(Canvas canvas, float marginX, float marginY,
-                       int puzzleSize, float scaleFactor){
+                       float puzzleSize, float scaleFactor){
 
         canvas.save();
 
         // Convert x,y to pixels and add the margin, then draw
-        canvas.translate(marginX + x * puzzleSize, marginY + y * puzzleSize);
+        canvas.translate(marginX + x * puzzleSize , marginY + y * puzzleSize );
 
         // Scale it to the right size
         canvas.scale(scaleFactor, scaleFactor);
