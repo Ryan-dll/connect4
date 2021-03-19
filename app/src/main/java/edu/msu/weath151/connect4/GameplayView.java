@@ -62,6 +62,8 @@ public class GameplayView extends View {
         return board.onTouchEvent(this, event);
     }
 
+    public void addPiece(Context context,int id){board.addPiece(context,id);}
+
 
 
 

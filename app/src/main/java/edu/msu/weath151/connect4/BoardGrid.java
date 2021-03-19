@@ -7,9 +7,9 @@ import android.graphics.Canvas;
 
 public class BoardGrid {
 
-    private Bitmap Slot;
+    private static Bitmap Slot = null;
 
-    private int id;
+    private static int id = R.drawable.empty_space;
 
     private float x;
 
@@ -43,17 +43,42 @@ public class BoardGrid {
         Taken = taken;
     }
 
-    public Bitmap getSlot() {
+    public static Bitmap getSlot() {
         return Slot;
     }
 
-    BoardGrid (Context context, int id, float x, float y){
-        Slot = BitmapFactory.decodeResource(context.getResources(), id);
+    public static void setSlot(Context context)
+    {
+        if (Slot == null)
+        {
+            Slot = BitmapFactory.decodeResource(context.getResources(), id);
+        }
+    }
+
+    BoardGrid (float x, float y){
+        // Slot = BitmapFactory.decodeResource(context.getResources(), id);
         this.x = x;
         this.y = y;
     }
 
-    public void onDraw(Canvas canvas) {
-        canvas.drawBitmap(Slot, x, y, null);
+
+
+    public void onDraw(Canvas canvas, float marginX, float marginY,
+                       int puzzleSize, float scaleFactor){
+
+        canvas.save();
+
+        // Convert x,y to pixels and add the margin, then draw
+        canvas.translate(marginX + x * puzzleSize, marginY + y * puzzleSize);
+
+        // Scale it to the right size
+        canvas.scale(scaleFactor, scaleFactor);
+
+        // This magic code makes the center of the piece at 0, 0
+        //canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
+
+        // Draw the bitmap
+        canvas.drawBitmap(Slot, 0, 0, null);
+        canvas.restore();
     }
 }

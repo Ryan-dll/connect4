@@ -58,7 +58,7 @@ public class Board {
 
     private Pieces pieces;
     private Piece piece;
-    private ArrayList<ArrayList<Piece>> board_pieces = new ArrayList<ArrayList<Piece>>();
+    private ArrayList<ArrayList<BoardGrid>> board_pieces = new ArrayList<ArrayList<BoardGrid>>();
 
     private BoardGrid Grid;
 
@@ -66,17 +66,19 @@ public class Board {
 
     private Canvas canvas;
 
-    public Board(Context context, View view){
+    public Board(Context context, View view) {
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(0xffcccccc);
         pieces = new Pieces(context);
         this.boardView = view;
         emptyPiece = new Piece(context, R.drawable.empty_space, 0, 0);
         greenPiece = new Piece(context, R.drawable.spartan_green, 0, 0);
-
-
+        this.context = context;
         AssembleBoard(context);
     }
+
+
+    private Context context;
 
     public float getMarginX() {
         return marginX;
@@ -94,58 +96,43 @@ public class Board {
         return pieces;
     }
 
-    public ArrayList<ArrayList<Piece>> getBoard_pieces() {
+    public ArrayList<ArrayList<BoardGrid>> getBoard_pieces() {
         return board_pieces;
     }
 
     public void AssembleBoard(Context context) {
         for (int i = 0; i < 7; i++) {
-            ArrayList<Piece> column = new ArrayList<Piece>();
-            for (int b = 0; b < 6; b++) {
-                Piece BoardPiece = new Piece(context, R.drawable.empty_space, 0, 0);
+            ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
+            BoardGrid.setSlot(context);
+            for (int j = 0; j < 6; j++) {
+                BoardGrid BoardPiece = new BoardGrid(i*BoardGrid.getSlot().getWidth(), j*BoardGrid.getSlot().getHeight());
                 column.add(BoardPiece);
             }
             board_pieces.add(column);
         }
     }
-
+/*
     public void ReconfigureBoard(Canvas canvas, int MarginX, int MarginY){
         if (FirstDraw) {
 
-
-            int wid = board_pieces.get(0).get(0).getPiece().getWidth();
+            BoardGrid.setSlot(context);
+            int wid = board_pieces.get(0).get(0).getSlot().getWidth();
 
             // Rows
             for (int i = 0; i < board_pieces.size(); i++) {
 
                 // Columns
-                for (int b = 0; b < board_pieces.get(i).size(); b++) {
+                for (int j = 0; j < board_pieces.get(i).size(); j++) {
 
-                    // Set X Coordinate
-                    float PrevX = 0;
-                    if (i > 0) {
-                        PrevX = board_pieces.get(i-1).get(b).getX();
-                        board_pieces.get(i).get(b).setX(PrevX + wid);
-                    } else {
-                        board_pieces.get(i).get(b).setX(MarginX);
-                    }
-
-                    // Set Y Coordinate
-                    float PrevY = 0;
-                    if (b > 0) {
-                        PrevY = board_pieces.get(i).get(b-1).getY();
-                        board_pieces.get(i).get(b).setY(PrevY + wid);
-                    } else {
-                        board_pieces.get(i).get(b).setY(MarginY);
-                    }
-
+                    BoardGrid boardGrid = new BoardGrid(i*BoardGrid.getSlot().getWidth(), j*BoardGrid.getSlot().getHeight());
+                    board_pieces.add
                 }
                 // END Columns
             }
             // END Rows
         }
     }
-
+*/
     public void onDraw(Canvas canvas){
         float wid = canvas.getWidth();
         float hit = canvas.getHeight();
@@ -170,7 +157,7 @@ public class Board {
         marginX = (wid - iWid) / 2;
         marginY = (hit - iHit) / 2;
 
-        // ReconfigureBoard(canvas,marginX,marginY);
+        //ReconfigureBoard(canvas,0,0);
 
         // Draw the board
         canvas.save();
@@ -180,9 +167,7 @@ public class Board {
         for( int i = 0; i < 7; i++)
         {
             for (int j = 0; j < 6; j++){
-                emptyPiece.onDraw(canvas, i*emptyPiece.getPiece().getWidth(),
-                        j*emptyPiece.getPiece().getHeight(), boardSize,
-                        1);
+                board_pieces.get(i).get(j).onDraw(canvas, 0, 0, 1, 1);
             }
         }
 
@@ -242,24 +227,23 @@ public class Board {
     }
 
     public void SnapPiece(float relX, float relY){
-        for( ArrayList<Piece> empty_pieces : board_pieces)
+        for( ArrayList<BoardGrid> empty_pieces : board_pieces)
         {
-            for (Piece empty_piece : empty_pieces){
-                int wid = empty_piece.getPiece().getWidth();
+            for (BoardGrid empty_piece : empty_pieces){
+                int wid = BoardGrid.getSlot().getWidth();
 
-                float BoardPieceX = empty_piece.getX();
-                float BoardPieceY = empty_piece.getY();
+                float BoardPieceX = (empty_piece.getX())/( scaleFactor);
+                float BoardPieceY = empty_piece.getY()/( scaleFactor);
 
-                float PieceX = dragging.getX() * boardSize / scaleFactor;
-                float PieceY = (dragging.getY() * boardSize / scaleFactor);
-                float x = wid/(2f*(boardSize/scaleFactor));
+                float PieceX = dragging.getX();
+                float PieceY = dragging.getY();
+                float x = wid/((scaleFactor));
 
                 double Distance = Math.sqrt(Math.pow(Math.abs(PieceX - BoardPieceX), 2) +
                         Math.pow(Math.abs(PieceY - BoardPieceY), 2));
                 if(Distance < (wid)) {
 
-                    dragging.setLocation((BoardPieceX / (boardSize / scaleFactor)),
-                            (BoardPieceY / (boardSize / scaleFactor)));
+                    dragging.setLocation(BoardPieceX ,BoardPieceY );
 
                     Player1Turn = !Player1Turn;
                 }
@@ -292,5 +276,5 @@ public class Board {
         return false;
     }
 
-
+    public void addPiece(Context context, int id){pieces.addPiece(context, id);}
 }

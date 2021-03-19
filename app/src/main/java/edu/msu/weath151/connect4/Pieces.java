@@ -28,5 +28,7 @@ public class Pieces {
             piece.onDraw(canvas,MarginX,MarginY,BoardSize,Scale);
         }
     }
+
+    public void addPiece(Context context, int id){pieces.add(new Piece(context, id, 0, 0));}
 }
 

@@ -2,10 +2,7 @@ package edu.msu.weath151.connect4;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.view.View;
 
@@ -31,7 +28,13 @@ public class GamePlayActivity extends AppCompatActivity {
 
 
     public void whitePiece(View view) {
+        //((GameplayView) view).addPiece(this, R.id.greenPiece);
+        //((GameplayView) view).invalidate();
+    }
 
+    private GameplayView getView()
+    {
+        return (GameplayView) findViewById(R.id.viewGame);
     }
 
 
