@@ -202,13 +202,14 @@ public class Board {
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
-                return onTouched(relX, relY);
+                onTouched(relX, relY);
+                return true;
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                boolean ok = isValid();
+                //boolean ok = isValid();
                 SnapPiece(relX, relY);
-                view.invalidate();
+                return true;
 
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
@@ -216,11 +217,10 @@ public class Board {
                     dragging.move(relX - lastRelX, relY - lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
-                    view.invalidate();
 
                     return true;
                 }
-                break;
+                return true;
         }
 
         return false;

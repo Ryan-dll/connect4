@@ -59,7 +59,9 @@ public class GameplayView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return board.onTouchEvent(this, event);
+        boolean result = board.onTouchEvent(this, event);
+        invalidate();
+        return result;
     }
 
     public void addPiece(Context context,int id){board.addPiece(context,id);}
