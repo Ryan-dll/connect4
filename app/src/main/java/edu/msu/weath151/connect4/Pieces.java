@@ -29,6 +29,10 @@ public class Pieces {
         }
     }
 
+    public void remove(Piece piece) {
+        pieces.remove(piece);
+    }
+
     public void addPiece(Context context, int id){pieces.add(new Piece(context, id, 0, 0));}
 }
 

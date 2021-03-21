@@ -103,15 +103,16 @@ public class Board {
     }
 
     public void AssembleBoard(Context context) {
-        board_pieces = new ArrayList<ArrayList<BoardGrid>>();
-        for (int i = 0; i < 7; i++) {
-            ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
-            BoardGrid.setSlot(context);
-            for (int j = 0; j < 6; j++) {
-                BoardGrid BoardPiece = new BoardGrid((i/6f), (j/6f));
-                column.add(BoardPiece);
+        if (FirstDraw){
+            for (int i = 0; i < 7; i++) {
+                ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
+                BoardGrid.setSlot(context);
+                for (int j = 0; j < 6; j++) {
+                    BoardGrid BoardPiece = new BoardGrid((i/6f), (j/6f));
+                    column.add(BoardPiece);
+                }
+                board_pieces.add(column);
             }
-            board_pieces.add(column);
         }
     }
 /*
@@ -211,8 +212,8 @@ public class Board {
             case MotionEvent.ACTION_UP:
 
             case MotionEvent.ACTION_CANCEL:
-                //boolean ok = isValid();
-                if (dragging != null) {
+                boolean ok = isValid();
+                if (dragging != null && ok) {
                     SnapPiece(relX, relY);
                 }
                 return true;
@@ -267,23 +268,30 @@ public class Board {
     }
 
     public boolean isValid() {
+        if (dragging != null){
+            // find row and column of piece
+            int wid = BoardGrid.getSlot().getWidth();
+            float b = wid/((2f*boardSize));
 
-        // find row and column of piece
-        // 0,0 for now until snap piece works
-        int row = 0;
-        int column = 0;
+            double x = dragging.getX()/b;
+            int row = (int)Math.ceil(x);
 
-        for (int i = 6; i >= column; i--){
-            BoardGrid piece = board_pieces.get(row).get(i);
-            if (!piece.isTaken()){
-                piece.setTaken(true);
-                dropPiece(row, i);
-                return true;
+            double y = dragging.getY()/b;
+            int column = (int)Math.ceil(y);
+
+            for (int i = 5; i >= column; i--) {
+                BoardGrid piece = board_pieces.get(row).get(i);
+                if (piece.isTaken() == null) {
+                    piece.setTaken(dragging);
+                    dropPiece(row, i);
+                    return true;
+                }
             }
+            pieces.remove(dragging);
+            return false;
+
         }
-
         return false;
-
     }
 
     private void dropPiece(int row, int column) {

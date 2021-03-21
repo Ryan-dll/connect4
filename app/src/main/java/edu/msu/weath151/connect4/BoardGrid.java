@@ -33,13 +33,13 @@ public class BoardGrid {
         this.y = y;
     }
 
-    private boolean Taken = false;
+    private Piece Taken = null;
 
-    public boolean isTaken() {
+    public Piece isTaken() {
         return Taken;
     }
 
-    public void setTaken(boolean taken) {
+    public void setTaken(Piece taken) {
         Taken = taken;
     }
 
