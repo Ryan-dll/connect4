@@ -212,7 +212,9 @@ public class Board {
 
             case MotionEvent.ACTION_CANCEL:
                 //boolean ok = isValid();
-                SnapPiece(relX, relY);
+                if (dragging != null) {
+                    SnapPiece(relX, relY);
+                }
                 return true;
 
             case MotionEvent.ACTION_MOVE:
@@ -239,8 +241,8 @@ public class Board {
             for (BoardGrid empty_piece : empty_pieces){
                 int wid = BoardGrid.getSlot().getWidth();
 
-                float BoardPieceX = empty_piece.getX() + 1/6f;
-                float BoardPieceY = empty_piece.getY() + 1/6f;
+                float BoardPieceX = empty_piece.getX() ;
+                float BoardPieceY = empty_piece.getY() ;
 
                 float PieceX = dragging.getX();
                 float PieceY = dragging.getY();
