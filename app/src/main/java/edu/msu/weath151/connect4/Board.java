@@ -66,6 +66,8 @@ public class Board {
 
     private Canvas canvas;
 
+    private boolean touchpiece = false;
+
     public Board(Context context, View view) {
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         fillPaint.setColor(0xffcccccc);
@@ -203,9 +205,11 @@ public class Board {
 
             case MotionEvent.ACTION_DOWN:
                 onTouched(relX, relY);
+                selectColor();
                 return true;
 
             case MotionEvent.ACTION_UP:
+
             case MotionEvent.ACTION_CANCEL:
                 //boolean ok = isValid();
                 SnapPiece(relX, relY);
@@ -307,6 +311,17 @@ public class Board {
         }
 
         return false;
+    }
+
+    public void selectColor(){
+        if(!touchpiece) {
+            this.addPiece(this.context, R.drawable.spartan_white);
+            touchpiece = true;
+        }
+        else {
+            this.addPiece(this.context, R.drawable.spartan_green);
+            touchpiece = false;
+        }
     }
 
     public void addPiece(Context context, int id){pieces.addPiece(context, id);}
