@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="onEndGame"
-            android:text="@string/game_end_button"
+            android:text="@string/surrender"
             android:textSize="24sp"
             app:backgroundTint="#4CAF50" />
 

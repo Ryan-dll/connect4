@@ -36,6 +36,10 @@ public class Board {
 
     private boolean Player1Turn = true;
 
+    public boolean isPlayer1Turn() {
+        return Player1Turn;
+    }
+
     /**
      * This variable is set to a piece we are dragging. If
      * we are not dragging, the variable is null.

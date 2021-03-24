@@ -13,4 +13,5 @@
     <string name="Player2Turns">Player 2"'"s Turn</string>
     <string name="new_game">New Game</string>
     <string name="player_won">Player Won!</string>
+    <string name="surrender">Surrender</string>
 </resources>

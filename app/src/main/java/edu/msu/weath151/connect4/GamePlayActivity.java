@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity {
 
-
+    public static final String PLAYER_TURN = "player_turn";
+    public static final String PLAYER1_NAME = "player1_name";
+    public static final String PLAYER2_NAME = "player2_name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,9 @@ public class GamePlayActivity extends AppCompatActivity {
 
     public void onEndGame(View view) {
         Intent intent = new Intent(this, GameEndActivity.class);
+        intent.putExtra(PLAYER_TURN, ((GameplayView)findViewById(R.id.viewGame)).getBoard().isPlayer1Turn());
+        intent.putExtra(PLAYER1_NAME, PLAYER1_NAME);
+        intent.putExtra(PLAYER2_NAME, PLAYER2_NAME);
         startActivity(intent);
     }
 
