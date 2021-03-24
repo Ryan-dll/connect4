@@ -212,8 +212,7 @@ public class Board {
             case MotionEvent.ACTION_UP:
 
             case MotionEvent.ACTION_CANCEL:
-                boolean ok = isValid();
-                if (dragging != null && ok) {
+                if (dragging != null) {
                     SnapPiece(relX, relY);
                 }
                 return true;
@@ -237,6 +236,8 @@ public class Board {
         float min = 1000f;
         float minX = 0;
         float minY = 0;
+        int row = 0;
+        int column = 0;
         for( ArrayList<BoardGrid> empty_pieces : board_pieces)
         {
             for (BoardGrid empty_piece : empty_pieces){
@@ -256,28 +257,36 @@ public class Board {
                     min = Distance;
                     minX = BoardPieceX;
                     minY = BoardPieceY;
+
+                    // Calculate row and column for isValid()
+                    float bX = BoardPieceX/x;
+                    float bY = BoardPieceY/x;
+                    row = (int)Math.ceil(bX);
+                    column = (int)Math.ceil(bY);
                 }
             }
         }
         if ((1000f - min) > 500f)
         {
             dragging.setLocation(minX, minY);
+            boolean ok = isValid(row,column);
             Player1Turn = !Player1Turn;
         }
+
         dragging = null;
     }
 
-    public boolean isValid() {
+    public boolean isValid(int row, int column) {
         if (dragging != null){
             // find row and column of piece
-            int wid = BoardGrid.getSlot().getWidth();
+/*            int wid = BoardGrid.getSlot().getWidth();
             float b = wid/((2f*boardSize));
 
             double x = dragging.getX()/b;
             int row = (int)Math.ceil(x);
 
             double y = dragging.getY()/b;
-            int column = (int)Math.ceil(y);
+            int column = (int)Math.ceil(y);*/
 
             for (int i = 5; i >= column; i--) {
                 BoardGrid piece = board_pieces.get(row).get(i);
