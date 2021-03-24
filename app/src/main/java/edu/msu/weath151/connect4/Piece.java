@@ -36,6 +36,16 @@ public class Piece {
     private Bitmap piece;
     private Paint paint = new Paint();
 
+    private boolean Player1 = true;
+
+    public boolean isPlayer1() {
+        return Player1;
+    }
+
+    public void setPlayer1(boolean player1) {
+        Player1 = player1;
+    }
+
     private float x;
     private float y;
 
