@@ -3,6 +3,7 @@ package edu.msu.weath151.connect4;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
@@ -270,7 +271,13 @@ public class Board {
         {
             dragging.setLocation(minX, minY);
             boolean ok = isValid(row,column);
-            Player1Turn = !Player1Turn;
+            if (ok){
+                boolean win = checkWin();
+                if (win) {
+                    board_pieces.clear();
+                }
+                Player1Turn = !Player1Turn;
+            }
         }
 
         dragging = null;
@@ -303,9 +310,31 @@ public class Board {
         return false;
     }
 
-    private void dropPiece(int row, int column) {
+    public void dropPiece(int row, int column) {
         BoardGrid piece = board_pieces.get(row).get(column);
         dragging.setLocation(piece.getX(), piece.getY());
+        Bitmap x = board_pieces.get(row).get(column).isTaken().getPiece();
+    }
+
+    public boolean checkWin() {
+        if (verticalWin() || horizontalWin() ||
+            diagonalWin() || reverseDiagonalWin()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verticalWin() {
+        return false;
+    }
+    public boolean horizontalWin() {
+        return false;
+    }
+    public boolean diagonalWin() {
+        return false;
+    }
+    public boolean reverseDiagonalWin() {
+        return false;
     }
 
     /**
