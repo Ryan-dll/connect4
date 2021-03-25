@@ -15,11 +15,11 @@ public class Pieces {
         return pieces;
     }
 
+    float x;
+    float y;
+
     public Pieces(Context context)
     {
-        Piece piece = new Piece(context, R.drawable.spartan_green, 0, 0);
-
-        pieces.add(piece);
     }
 
     public void onDraw(Canvas canvas, float MarginX, float MarginY,float BoardSize, float Scale ) {
@@ -33,6 +33,11 @@ public class Pieces {
         pieces.remove(piece);
     }
 
-    public void addPiece(Context context, int id){pieces.add(new Piece(context, id, 0, 0));}
+    public void setLocation(float a, float b) {
+        x = a;
+        y = b;
+    }
+
+    public void addPiece(Context context, int id){pieces.add(new Piece(context, id, x, y));}
 }
 

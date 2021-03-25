@@ -71,7 +71,9 @@ public class Board {
 
     private Canvas canvas;
 
-    private boolean touchpiece = false;
+    private boolean touchpiece;
+    int num;
+    private boolean colorPiece;
 
     public Board(Context context, View view) {
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -182,8 +184,10 @@ public class Board {
         }
 
 
+        if(touchpiece){
+            pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
+        }
 
-        pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
 
         if (FirstDraw) {
             this.FirstDraw = false;
@@ -206,12 +210,22 @@ public class Board {
 
         float relX = (event.getX() ) / (boardSize) ;
         float relY = (event.getY() ) / (boardSize) ;
+        touchpiece = true;
 
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
                 onTouched(relX, relY);
-                selectColor();
+                if(num % 2 ==0){
+                    pieces.setLocation(relX, relY);
+                    if(!colorPiece){
+                        greenColor();
+                    }
+                    else{
+                        whiteColor();
+                    }
+                }
+                num += 1;
                 return true;
 
             case MotionEvent.ACTION_UP:
@@ -365,15 +379,14 @@ public class Board {
         return false;
     }
 
-    public void selectColor(){
-        if(!touchpiece) {
-            this.addPiece(this.context, R.drawable.spartan_white);
-            touchpiece = true;
-        }
-        else {
-            this.addPiece(this.context, R.drawable.spartan_green);
-            touchpiece = false;
-        }
+    public void greenColor(){
+        this.addPiece(this.context, R.drawable.spartan_green);
+        colorPiece = true;
+    }
+
+    public void whiteColor(){
+        this.addPiece(this.context, R.drawable.spartan_white);
+        colorPiece = false;
     }
 
     public void addPiece(Context context, int id){pieces.addPiece(context, id);}
