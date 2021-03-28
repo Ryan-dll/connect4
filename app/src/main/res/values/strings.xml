@@ -14,4 +14,5 @@
     <string name="new_game">New Game</string>
     <string name="player_won">Player Won!</string>
     <string name="surrender">Surrender</string>
+    <string name="main_image_description">The app icon image</string>
 </resources>

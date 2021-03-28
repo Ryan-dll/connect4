@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:contentDescription="@string/main_image_description"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5">
+
+        <TextView
+            android:id="@+id/Connect4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fontFamily="@font/krona_one"
+            android:gravity="center"
+            android:text="@string/game_desc"
+            android:textAlignment="inherit"
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/Player1Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Connect4"
+            android:layout_alignParentTop="false"
+            android:fontFamily="@font/carter_one"
+            android:gravity="center|top"
+            android:text="@string/Player1Txt"
+            android:textColor="#424242"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/EditText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Player1Text"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="@font/carter_one"
+            android:hint="@string/PlayerEnter"
+            android:inputType="textPersonName"
+            android:textColor="#424242"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/PLayer2Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/EditText1"
+            android:fontFamily="@font/carter_one"
+            android:gravity="center|top"
+            android:text="@string/Player2Txt"
+            android:textColor="#424242"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/EditText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PLayer2Text"
+            android:autofillHints=""
+            android:ems="10"
+            android:fontFamily="@font/carter_one"
+            android:hint="@string/PlayerEnter"
+            android:inputType="textPersonName"
+            android:textColor="#424242"
+            android:textSize="24sp"
+            android:textStyle="italic" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/EditText2">
+
+            <Button
+                android:id="@+id/gameStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:onClick="onStartGame"
+                android:text="@string/game_start_button"
+                android:textSize="24sp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+</LinearLayout>

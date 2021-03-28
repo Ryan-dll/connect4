@@ -16,7 +16,9 @@ public class GameEndActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String player1_name = intent.getStringExtra(GamePlayActivity.PLAYER1_NAME);
         String player2_name = intent.getStringExtra(GamePlayActivity.PLAYER2_NAME);
-        if(intent.getBooleanExtra(GamePlayActivity.PLAYER_TURN, true))
+        // TO DO:
+        //Use android resources instead of Literal String concatenation
+        if(!intent.getBooleanExtra(GamePlayActivity.PLAYER_TURN, false))
         {
             ((TextView)findViewById(R.id.winner)).setText(player1_name + " beat " + player2_name + "!");
         }

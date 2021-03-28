@@ -1,5 +1,6 @@
 package edu.msu.weath151.connect4;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -29,7 +30,9 @@ public class GamePlayActivity extends AppCompatActivity {
 
     public void onEndGame(View view) {
         Intent intent = new Intent(this, GameEndActivity.class);
-        intent.putExtra(PLAYER_TURN, ((GameplayView)findViewById(R.id.viewGame)).getBoard().isPlayer1Turn());
+        intent.putExtra(PLAYER_TURN, getView().getBoard().isPlayer1Turn());
+        // TO DO:
+        // Replace each second input with the real player names
         intent.putExtra(PLAYER1_NAME, PLAYER1_NAME);
         intent.putExtra(PLAYER2_NAME, PLAYER2_NAME);
         startActivity(intent);
@@ -49,6 +52,11 @@ public class GamePlayActivity extends AppCompatActivity {
         return (GameplayView) findViewById(R.id.viewGame);
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getView().getBoard().onSaveInstanceState(outState);
+    }
 
-
+    public static final String PLACED_PIECES = "placed_pieces";
 }

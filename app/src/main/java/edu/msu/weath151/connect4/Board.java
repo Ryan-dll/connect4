@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -390,4 +391,9 @@ public class Board {
     }
 
     public void addPiece(Context context, int id){pieces.addPiece(context, id);}
+
+    public void onSaveInstanceState(Bundle outState)
+    {
+
+    }
 }
