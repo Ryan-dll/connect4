@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class GameEndActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +17,9 @@ public class GameEndActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String player1_name = intent.getStringExtra(GamePlayActivity.PLAYER1_NAME);
         String player2_name = intent.getStringExtra(GamePlayActivity.PLAYER2_NAME);
+        TextView player1 = (TextView)findViewById(R.id.winner);
+        player1.setText(player1_name);
+
         // TO DO:
         //Use android resources instead of Literal String concatenation
         if(!intent.getBooleanExtra(GamePlayActivity.PLAYER_TURN, false))
@@ -25,7 +29,11 @@ public class GameEndActivity extends AppCompatActivity {
         else {
             ((TextView)findViewById(R.id.winner)).setText(player2_name + " beat " + player1_name + "!");
         }
+
+
     }
+
+
 
     public void onPlayGame(View view) {
         Intent intent = new Intent(this, GamePlayActivity.class);
