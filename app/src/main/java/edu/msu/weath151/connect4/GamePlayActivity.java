@@ -38,15 +38,6 @@ public class GamePlayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void greenPiece(View view) {
-    }
-
-
-    public void whitePiece(View view) {
-        //((GameplayView) view).addPiece(this, R.id.greenPiece);
-        //((GameplayView) view).invalidate();
-    }
-
     private GameplayView getView()
     {
         return (GameplayView) findViewById(R.id.viewGame);
