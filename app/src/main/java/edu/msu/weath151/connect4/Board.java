@@ -186,8 +186,8 @@ public class Board {
         // puzzle.
         //
 
-        float relX = (event.getX() - marginX ) / (boardSize) ;
-        float relY = (event.getY() - marginY ) / (boardSize) ;
+        float relX = (event.getX() - marginX - (float)60) / (boardSize) ;
+        float relY = (event.getY() - marginY - (float)60) / (boardSize) ;
         touchpiece = true;
 
         switch (event.getActionMasked()) {
