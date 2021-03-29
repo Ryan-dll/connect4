@@ -2,6 +2,7 @@ package edu.msu.weath151.connect4;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -292,7 +293,7 @@ public class Board {
         dragging.setLocation(piece.getX(), piece.getY());
         boolean win = checkWin(row,column);
         if (win) {
-            board_pieces.clear();
+            pieces.clear();
             Player1Turn = true;
         }
     }
@@ -339,9 +340,39 @@ public class Board {
         return false;
     }
     public boolean diagonalWin(int row, int column) {
+        for (int i=3; i<7; i++){
+            for (int j=0; j< 3; j++) {
+                if (board_pieces.get(i).get(j).isTaken() != null &&
+                        board_pieces.get(i - 1).get(j + 1).isTaken() != null &&
+                        board_pieces.get(i - 2).get(j + 2).isTaken() != null &&
+                        board_pieces.get(i - 3).get(j + 3).isTaken() != null) {
+                    if (board_pieces.get(i).get(j).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 1).get(j + 1).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 2).get(j + 2).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 3).get(j + 3).isTaken().isPlayer1() == Player1Turn) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
     public boolean reverseDiagonalWin(int row, int column) {
+        for (int i=3; i<7; i++){
+            for (int j=3; j< 6; j++) {
+                if (board_pieces.get(i).get(j).isTaken() != null &&
+                        board_pieces.get(i - 1).get(j - 1).isTaken() != null &&
+                        board_pieces.get(i - 2).get(j - 2).isTaken() != null &&
+                        board_pieces.get(i - 3).get(j - 3).isTaken() != null) {
+                    if (board_pieces.get(i).get(j).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 1).get(j - 1).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 2).get(j - 2).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 3).get(j - 3).isTaken().isPlayer1() == Player1Turn) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
