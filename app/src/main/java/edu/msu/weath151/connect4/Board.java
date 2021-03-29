@@ -148,14 +148,6 @@ public class Board {
         marginX = (wid - iWid) / 2;
         marginY = (hit - iHit) / 2;
 
-        //ReconfigureBoard(canvas,0,0);
-        AssembleBoard(context);
-
-        // Draw the board
-        //canvas.save();
-        //canvas.translate(marginX, marginY);
-        //canvas.scale(scaleFactor, scaleFactor);
-
         for( int i = 0; i < 7; i++)
         {
             for (int j = 0; j < 6; j++){
@@ -270,11 +262,6 @@ public class Board {
             dragging.setLocation(minX, minY);
             boolean ok = isValid(row,column);
             if (ok){
-                boolean win = checkWin();
-                if (win) {
-                    board_pieces.clear();
-                    Player1Turn = true;
-                }
                 Player1Turn = !Player1Turn;
             }
         }
@@ -303,26 +290,58 @@ public class Board {
     public void dropPiece(int row, int column) {
         BoardGrid piece = board_pieces.get(row).get(column);
         dragging.setLocation(piece.getX(), piece.getY());
+        boolean win = checkWin(row,column);
+        if (win) {
+            board_pieces.clear();
+            Player1Turn = true;
+        }
     }
 
-    public boolean checkWin() {
-        if (verticalWin() || horizontalWin() ||
-            diagonalWin() || reverseDiagonalWin()) {
+    public boolean checkWin(int row, int column) {
+        if (verticalWin(row,column) || horizontalWin(row, column) ||
+            diagonalWin(row, column) || reverseDiagonalWin(row, column)) {
             return true;
         }
         return false;
     }
 
-    public boolean verticalWin() {
+    public boolean verticalWin(int row, int column) {
+        int count = 0;
+        for (int i=0;i<6;i++) {
+            if (board_pieces.get(row).get(i).isTaken() != null){
+                if (board_pieces.get(row).get(i).isTaken().isPlayer1() == Player1Turn) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count>=4) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
-    public boolean horizontalWin() {
+
+    public boolean horizontalWin(int row, int column) {
+        int count = 0;
+        for (int i=0;i<7;i++) {
+            if (board_pieces.get(i).get(column).isTaken() != null){
+                if (board_pieces.get(i).get(column).isTaken().isPlayer1() == Player1Turn) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count>=4) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
-    public boolean diagonalWin() {
+    public boolean diagonalWin(int row, int column) {
         return false;
     }
-    public boolean reverseDiagonalWin() {
+    public boolean reverseDiagonalWin(int row, int column) {
         return false;
     }
 
