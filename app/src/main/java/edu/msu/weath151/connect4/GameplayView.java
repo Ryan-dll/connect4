@@ -1,6 +1,7 @@
 package edu.msu.weath151.connect4;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -20,6 +21,7 @@ public class GameplayView extends View {
 
 
     private Piece piece;
+
 
 
     /**

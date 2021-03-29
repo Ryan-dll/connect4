@@ -24,10 +24,17 @@ public class GameEndActivity extends AppCompatActivity {
         //Use android resources instead of Literal String concatenation
         if(!intent.getBooleanExtra(GamePlayActivity.PLAYER_TURN, false))
         {
-            ((TextView)findViewById(R.id.winner)).setText(player1_name + " beat " + player2_name + "!");
+            ((TextView)findViewById(R.id.winner)).setText(String.format("%s beat %s!", player1_name, player2_name));
         }
-        else {
-            ((TextView)findViewById(R.id.winner)).setText(player2_name + " beat " + player1_name + "!");
+        else if(intent.getBooleanExtra(GamePlayActivity.PLAYER_TURN, true)) {
+            ((TextView)findViewById(R.id.winner)).setText(String.format("%s beat %s!", player2_name, player1_name));
+        }
+
+        else if(intent.getBooleanExtra(GamePlayActivity.WINNER, false)) {
+            ((TextView)findViewById(R.id.winner)).setText(String.format("%s beat %s!", player1_name, player2_name));
+        }
+        else if(!intent.getBooleanExtra(GamePlayActivity.WINNER, true)) {
+            ((TextView)findViewById(R.id.winner)).setText(String.format("%s beat %s!", player2_name, player1_name));
         }
 
 

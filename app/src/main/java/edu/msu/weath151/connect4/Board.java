@@ -35,6 +35,11 @@ public class Board {
     private Piece emptyPiece;
     private Piece greenPiece;
 
+    private boolean player1 = false;
+    private boolean player2 = false;
+    private boolean winner;
+    public boolean getWinner(){return winner;}
+
 
     private boolean Player1Turn = true;
 
@@ -181,24 +186,25 @@ public class Board {
         // puzzle.
         //
 
-        float relX = (event.getX() ) / (boardSize) ;
-        float relY = (event.getY() ) / (boardSize) ;
+        float relX = (event.getX() - marginX ) / (boardSize) ;
+        float relY = (event.getY() - marginY ) / (boardSize) ;
         touchpiece = true;
 
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
                 onTouched(relX, relY);
-                if(num % 2 ==0){
-                    //pieces.setLocation(relX, relY);
-                    if(Player1Turn){
-                        greenColor(relX, relY);
-                    }
-                    else{
-                        whiteColor(relX, relY);
-                    }
+                //pieces.setLocation(relX, relY);
+                if(Player1Turn){
+                    greenColor(relX, relY);
+                    player1 = true;
+                    player2 = false;
                 }
-                num += 1;
+                else{
+                    whiteColor(relX, relY);
+                    player2 = true;
+                    player1 = false;
+                }
                 return true;
 
             case MotionEvent.ACTION_UP:
@@ -301,7 +307,21 @@ public class Board {
     public boolean checkWin(int row, int column) {
         if (verticalWin(row,column) || horizontalWin(row, column) ||
             diagonalWin(row, column) || reverseDiagonalWin(row, column)) {
+            if(player1)
+            {
+                winner = false;
+            }
+            else{
+                winner = true;
+            }
             return true;
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }
@@ -316,9 +336,23 @@ public class Board {
                     count = 0;
                 }
                 if (count>=4) {
+                    if(player1)
+                    {
+                        winner = false;
+                    }
+                    else{
+                        winner = true;
+                    }
                     return true;
                 }
             }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }
@@ -333,9 +367,23 @@ public class Board {
                     count = 0;
                 }
                 if (count>=4) {
+                    if(player1)
+                    {
+                        winner = false;
+                    }
+                    else{
+                        winner = true;
+                    }
                     return true;
                 }
             }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }
@@ -350,10 +398,24 @@ public class Board {
                             board_pieces.get(i - 1).get(j + 1).isTaken().isPlayer1() == Player1Turn &&
                             board_pieces.get(i - 2).get(j + 2).isTaken().isPlayer1() == Player1Turn &&
                             board_pieces.get(i - 3).get(j + 3).isTaken().isPlayer1() == Player1Turn) {
+                        if(player1)
+                        {
+                            winner = false;
+                        }
+                        else{
+                            winner = true;
+                        }
                         return true;
                     }
                 }
             }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }
@@ -368,10 +430,24 @@ public class Board {
                             board_pieces.get(i - 1).get(j - 1).isTaken().isPlayer1() == Player1Turn &&
                             board_pieces.get(i - 2).get(j - 2).isTaken().isPlayer1() == Player1Turn &&
                             board_pieces.get(i - 3).get(j - 3).isTaken().isPlayer1() == Player1Turn) {
+                        if(player1)
+                        {
+                            winner = false;
+                        }
+                        else{
+                            winner = true;
+                        }
                         return true;
                     }
                 }
             }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }

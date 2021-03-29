@@ -3,8 +3,10 @@ package edu.msu.weath151.connect4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,11 +14,13 @@ import android.widget.TextView;
 public class GamePlayActivity extends AppCompatActivity {
 
     public static final String PLAYER_TURN = "player_turn";
+    public static final String WINNER= "player_turn";
     public static final String PLAYER1_NAME = "Player1";
     public static final String PLAYER2_NAME = "Player2";
 
     String player1_Name;
     String player2_Name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +39,9 @@ public class GamePlayActivity extends AppCompatActivity {
 
     }
 
+
     public void onEndGame(View view) {
+
         Intent intent = new Intent(this, GameEndActivity.class);
         intent.putExtra(PLAYER_TURN, getView().getBoard().isPlayer1Turn());
         // TO DO:
@@ -44,6 +50,18 @@ public class GamePlayActivity extends AppCompatActivity {
         intent.putExtra(PLAYER2_NAME, player2_Name);
         startActivity(intent);
     }
+
+    public void onEndGameDone(View view) {
+
+        Intent intent = new Intent(this, GameEndActivity.class);
+        intent.putExtra(WINNER, getView().getBoard().getWinner());
+        // TO DO:
+        // Replace each second input with the real player names
+        intent.putExtra(PLAYER1_NAME,player1_Name);
+        intent.putExtra(PLAYER2_NAME, player2_Name);
+        startActivity(intent);
+    }
+
 
     private GameplayView getView()
     {
