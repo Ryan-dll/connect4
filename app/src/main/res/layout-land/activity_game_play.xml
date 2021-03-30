@@ -7,8 +7,8 @@
     tools:context=".GamePlayActivity">
 
     <view
-        android:id="@+id/viewGameLand"
-        class="edu.msu.weath151.connect4.BoardView"
+        android:id="@+id/viewGame"
+        class="edu.msu.weath151.connect4.GameplayView"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1.6" />
