@@ -35,6 +35,14 @@ public class GamePlayActivity extends AppCompatActivity {
         TextView player1 = (TextView)findViewById(R.id.textView);
         TextView player2 = (TextView)findViewById(R.id.textView2);
         getView().getBoard().setNames(player1Name,player2Name);
+        if(player1Name.contentEquals(""))
+        {
+            player1Name = getString(R.string.Player1DefaultName);
+        }
+        if(player2Name.contentEquals(""))
+        {
+            player2Name = getString(R.string.Player2DefaultName);
+        }
         player1.setText(player1Name);
         player2.setText(player2Name);
 

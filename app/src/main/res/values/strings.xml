@@ -16,4 +16,6 @@
     <string name="surrender">Surrender</string>
     <string name="main_image_description">The app icon image</string>
     <string name="done_button">Done</string>
+    <string name="Player1DefaultName">Player 1</string>
+    <string name="Player2DefaultName">Player 2</string>
 </resources>
