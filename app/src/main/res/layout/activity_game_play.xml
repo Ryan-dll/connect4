@@ -80,21 +80,11 @@
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentEnd="false"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="false"
             android:onClick="onEndGame"
             android:text="@string/surrender"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/button"
-            android:layout_alignBottom="@id/button"
-            android:layout_alignParentStart="true"
-            android:onClick="onEndGameDone"
-            android:text="@string/done_button"
             android:textSize="24sp" />
 
     </RelativeLayout>

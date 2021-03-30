@@ -307,7 +307,7 @@ public class Board {
         boolean win = checkWin(row,column);
         if (win) {
             Intent intent = new Intent(context, GameEndActivity.class);
-            intent.putExtra(WINNER, Player1Turn);
+            intent.putExtra(WINNER, !Player1Turn);
             intent.putExtra(PLAYER1_NAME, Player1Name);
             intent.putExtra(PLAYER2_NAME, Player2Name);
             context.startActivity(intent);
