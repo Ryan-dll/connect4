@@ -34,6 +34,7 @@ public class GamePlayActivity extends AppCompatActivity {
         player2_Name = intent.getStringExtra(MainActivity.NAME2);
         TextView player1 = (TextView)findViewById(R.id.textView);
         TextView player2 = (TextView)findViewById(R.id.textView2);
+        getView().getBoard().setNames(player1Name,player2Name);
         player1.setText(player1Name);
         player2.setText(player2Name);
 
@@ -48,8 +49,6 @@ public class GamePlayActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, GameEndActivity.class);
         intent.putExtra(PLAYER_TURN, getView().getBoard().isPlayer1Turn());
-        // TO DO:
-        // Replace each second input with the real player names
         intent.putExtra(PLAYER1_NAME,player1_Name);
         intent.putExtra(PLAYER2_NAME, player2_Name);
         startActivity(intent);

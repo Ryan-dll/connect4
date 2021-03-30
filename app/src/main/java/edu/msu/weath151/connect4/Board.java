@@ -33,13 +33,23 @@ public class Board {
     private float scaleFactor;
 
     private Piece emptyPiece;
-    private Piece greenPiece;
+
+    public static final String WINNER= "player_turn";
+    public static final String PLAYER1_NAME = "Player1";
+    public static final String PLAYER2_NAME = "Player2";
 
     private boolean player1 = false;
     private boolean player2 = false;
     private boolean winner;
     public boolean getWinner(){return winner;}
 
+    private String Player1Name;
+    private String Player2Name;
+
+    public void setNames(String p1, String p2){
+        Player1Name = p1;
+        Player2Name = p2;
+    }
 
     private boolean Player1Turn = true;
 
@@ -88,7 +98,6 @@ public class Board {
         pieces = new Pieces(context);
         this.boardView = view;
         emptyPiece = new Piece(context, R.drawable.empty_space, 0, 0);
-        greenPiece = new Piece(context, R.drawable.spartan_green, 0, 0);
         this.context = context;
         AssembleBoard(context);
     }
@@ -297,8 +306,11 @@ public class Board {
         dragging.setLocation(piece.getX(), piece.getY());
         boolean win = checkWin(row,column);
         if (win) {
-            pieces.clear();
-            Player1Turn = true;
+            Intent intent = new Intent(context, GameEndActivity.class);
+            intent.putExtra(WINNER, Player1Turn);
+            intent.putExtra(PLAYER1_NAME, Player1Name);
+            intent.putExtra(PLAYER2_NAME, Player2Name);
+            context.startActivity(intent);
         }
     }
 

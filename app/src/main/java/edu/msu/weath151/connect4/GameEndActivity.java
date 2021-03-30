@@ -43,7 +43,7 @@ public class GameEndActivity extends AppCompatActivity {
 
 
     public void onPlayGame(View view) {
-        Intent intent = new Intent(this, GamePlayActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
