@@ -33,6 +33,8 @@ public class Piece {
      */
     private int marginY;
 
+    private int id;
+
     private Bitmap piece;
     private Paint paint = new Paint();
 
@@ -71,6 +73,12 @@ public class Piece {
         piece = BitmapFactory.decodeResource(context.getResources(), id);
         this.x = x;
         this.y = y;
+        this.id = id;
+    }
+
+    public int getId()
+    {
+        return id;
     }
 
     public Bitmap getPiece() {
@@ -136,6 +144,15 @@ public class Piece {
         // We are within the rectangle of the piece.
         // Are we touching actual picture?
         return (piece.getPixel(pX, pY) & 0xff000000) != 0;
+    }
+
+    public boolean isGreen()
+    {
+        if (new Integer(id).equals(R.drawable.spartan_green))
+        {
+            return true;
+        }
+        return false;
     }
 
 

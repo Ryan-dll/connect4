@@ -22,6 +22,8 @@ public class Pieces {
     {
     }
 
+    public Pieces(){}
+
     public void onDraw(Canvas canvas, float MarginX, float MarginY,float BoardSize, float Scale ) {
         for( Piece piece : pieces)
         {

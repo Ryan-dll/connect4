@@ -16,7 +16,6 @@ public class GamePlayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
 
         Intent intent = getIntent();
@@ -26,6 +25,12 @@ public class GamePlayActivity extends AppCompatActivity {
         TextView player2 = (TextView)findViewById(R.id.textView2);
         player1.setText(player1Name);
         player2.setText(player2Name);
+
+        if(savedInstanceState != null)
+        {
+            getView().getBoard().onRestoreState(this ,savedInstanceState);
+        }
+        super.onCreate(savedInstanceState);
     }
 
     public void onEndGame(View view) {

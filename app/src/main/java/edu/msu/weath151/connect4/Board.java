@@ -62,7 +62,7 @@ public class Board {
      */
     private Paint fillPaint;
 
-    private Pieces pieces;
+    private Pieces pieces = new Pieces();
     private Piece piece;
     private ArrayList<ArrayList<BoardGrid>> board_pieces = new ArrayList<ArrayList<BoardGrid>>();
 
@@ -116,7 +116,7 @@ public class Board {
                 ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
                 BoardGrid.setSlot(context);
                 for (int j = 0; j < 6; j++) {
-                    BoardGrid BoardPiece = new BoardGrid((i/6f), (j/6f));
+                    BoardGrid BoardPiece = new BoardGrid((i/7f), (j/7f));
                     column.add(BoardPiece);
                 }
                 board_pieces.add(column);
@@ -184,10 +184,8 @@ public class Board {
             }
         }
 
+        pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
 
-        if(touchpiece){
-            pieces.onDraw(canvas, marginX, marginY, boardSize, scaleFactor);
-        }
 
 
         if (FirstDraw) {
@@ -394,6 +392,70 @@ public class Board {
 
     public void onSaveInstanceState(Bundle outState)
     {
+        ArrayList<Integer> placedPieces = new ArrayList<>();
+        for(int i = 0; i < 42; i++)
+        {
+            placedPieces.add(0);
+        }
 
+        for(Piece piece : pieces.getPieces())
+        {
+            int i = 0;
+            int j = 0;
+            float x = piece.getX()*7;
+            float y = piece.getY()*7;
+            i = Math.round(y);
+            float est = (float)i - y;
+            if(!(est < 0.01f && est > -0.01f))
+            {
+                continue;
+            }
+            j = Math.round(x);
+            est = (float)j - x;
+            if(!(est < 0.01f && est > -0.01f))
+            {
+                continue;
+            }
+            if(piece.isGreen())
+            {
+                placedPieces.set(i*7 + j,1);
+            }
+            else
+            {
+                placedPieces.set(i*7 + j,2);
+            }
+        }
+
+        outState.putIntegerArrayList(GamePlayActivity.PLACED_PIECES, placedPieces);
+    }
+
+    public void onRestoreState(Context context,Bundle savedInstanceState)
+    {
+        if(!savedInstanceState.containsKey(GamePlayActivity.PLACED_PIECES))
+        {
+            return;
+        }
+        ArrayList<Integer> placedPieces = savedInstanceState.getIntegerArrayList(GamePlayActivity.PLACED_PIECES);
+
+        if(placedPieces == null)
+        {
+            return;
+        }
+
+        for(int i = 0; i < placedPieces.size(); i++)
+        {
+            pieces.setLocation((float)(i%7)/7,(float)(i/7)/7);
+            switch(placedPieces.get(i))
+            {
+                case 0:
+                    break;
+                case 1:
+                    pieces.addPiece(context, R.drawable.spartan_green);
+                    break;
+                case 2:
+                    pieces.addPiece(context, R.drawable.spartan_white);
+                    break;
+            }
+        }
     }
 }

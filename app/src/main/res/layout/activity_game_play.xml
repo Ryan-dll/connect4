@@ -7,12 +7,22 @@
     android:orientation="vertical"
     tools:context=".GamePlayActivity">
 
-    <view
-        android:id="@+id/viewGame"
-        class="edu.msu.weath151.connect4.GameplayView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <view
+            android:id="@+id/viewGame"
+            class="edu.msu.weath151.connect4.GameplayView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/whitePiece"
