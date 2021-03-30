@@ -520,8 +520,8 @@ public class Board {
         {
             int i = 0;
             int j = 0;
-            float x = piece.getX()*7;
-            float y = piece.getY()*7;
+            float x = piece.getX()*6;
+            float y = piece.getY()*6;
             i = Math.round(y);
             float est = (float)i - y;
             if(!(est < 0.01f && est > -0.01f))
