@@ -2,6 +2,7 @@ package edu.msu.weath151.connect4;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -33,6 +34,11 @@ public class Board {
 
     private Piece emptyPiece;
     private Piece greenPiece;
+
+    private boolean player1 = false;
+    private boolean player2 = false;
+    private boolean winner;
+    public boolean getWinner(){return winner;}
 
 
     private boolean Player1Turn = true;
@@ -123,28 +129,7 @@ public class Board {
             }
         }
     }
-/*
-    public void ReconfigureBoard(Canvas canvas, int MarginX, int MarginY){
-        if (FirstDraw) {
 
-            BoardGrid.setSlot(context);
-            int wid = board_pieces.get(0).get(0).getSlot().getWidth();
-
-            // Rows
-            for (int i = 0; i < board_pieces.size(); i++) {
-
-                // Columns
-                for (int j = 0; j < board_pieces.get(i).size(); j++) {
-
-                    BoardGrid boardGrid = new BoardGrid(i*BoardGrid.getSlot().getWidth(), j*BoardGrid.getSlot().getHeight());
-                    board_pieces.add
-                }
-                // END Columns
-            }
-            // END Rows
-        }
-    }
-*/
     public void onDraw(Canvas canvas){
         float wid = canvas.getWidth();
         float hit = canvas.getHeight();
@@ -168,14 +153,6 @@ public class Board {
         // Compute the margins so we center the puzzle
         marginX = (wid - iWid) / 2;
         marginY = (hit - iHit) / 2;
-
-        //ReconfigureBoard(canvas,0,0);
-        AssembleBoard(context);
-
-        // Draw the board
-        //canvas.save();
-        //canvas.translate(marginX, marginY);
-        //canvas.scale(scaleFactor, scaleFactor);
 
         for( int i = 0; i < 7; i++)
         {
@@ -207,24 +184,25 @@ public class Board {
         // puzzle.
         //
 
-        float relX = (event.getX() ) / (boardSize) ;
-        float relY = (event.getY() ) / (boardSize) ;
+        float relX = (event.getX() - marginX - (float)60) / (boardSize) ;
+        float relY = (event.getY() - marginY - (float)60) / (boardSize) ;
         touchpiece = true;
 
         switch (event.getActionMasked()) {
 
             case MotionEvent.ACTION_DOWN:
                 onTouched(relX, relY);
-                if(num % 2 ==0){
-                    pieces.setLocation(relX, relY);
-                    if(!colorPiece){
-                        greenColor();
-                    }
-                    else{
-                        whiteColor();
-                    }
+                //pieces.setLocation(relX, relY);
+                if(Player1Turn){
+                    greenColor(relX, relY);
+                    player1 = true;
+                    player2 = false;
                 }
-                num += 1;
+                else{
+                    whiteColor(relX, relY);
+                    player2 = true;
+                    player1 = false;
+                }
                 return true;
 
             case MotionEvent.ACTION_UP:
@@ -289,10 +267,6 @@ public class Board {
             dragging.setLocation(minX, minY);
             boolean ok = isValid(row,column);
             if (ok){
-                boolean win = checkWin();
-                if (win) {
-                    board_pieces.clear();
-                }
                 Player1Turn = !Player1Turn;
             }
         }
@@ -302,15 +276,6 @@ public class Board {
 
     public boolean isValid(int row, int column) {
         if (dragging != null){
-            // find row and column of piece
-/*            int wid = BoardGrid.getSlot().getWidth();
-            float b = wid/((2f*boardSize));
-
-            double x = dragging.getX()/b;
-            int row = (int)Math.ceil(x);
-
-            double y = dragging.getY()/b;
-            int column = (int)Math.ceil(y);*/
 
             for (int i = 5; i >= column; i--) {
                 BoardGrid piece = board_pieces.get(row).get(i);
@@ -330,27 +295,158 @@ public class Board {
     public void dropPiece(int row, int column) {
         BoardGrid piece = board_pieces.get(row).get(column);
         dragging.setLocation(piece.getX(), piece.getY());
-        Bitmap x = board_pieces.get(row).get(column).isTaken().getPiece();
+        boolean win = checkWin(row,column);
+        if (win) {
+            pieces.clear();
+            Player1Turn = true;
+        }
     }
 
-    public boolean checkWin() {
-        if (verticalWin() || horizontalWin() ||
-            diagonalWin() || reverseDiagonalWin()) {
+    public boolean checkWin(int row, int column) {
+        if (verticalWin(row,column) || horizontalWin(row, column) ||
+            diagonalWin(row, column) || reverseDiagonalWin(row, column)) {
+            if(player1)
+            {
+                winner = false;
+            }
+            else{
+                winner = true;
+            }
             return true;
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
         }
         return false;
     }
 
-    public boolean verticalWin() {
+    public boolean verticalWin(int row, int column) {
+        int count = 0;
+        for (int i=0;i<6;i++) {
+            if (board_pieces.get(row).get(i).isTaken() != null){
+                if (board_pieces.get(row).get(i).isTaken().isPlayer1() == Player1Turn) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count>=4) {
+                    if(player1)
+                    {
+                        winner = false;
+                    }
+                    else{
+                        winner = true;
+                    }
+                    return true;
+                }
+            }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
+        }
         return false;
     }
-    public boolean horizontalWin() {
+
+    public boolean horizontalWin(int row, int column) {
+        int count = 0;
+        for (int i=0;i<7;i++) {
+            if (board_pieces.get(i).get(column).isTaken() != null){
+                if (board_pieces.get(i).get(column).isTaken().isPlayer1() == Player1Turn) {
+                    count++;
+                } else {
+                    count = 0;
+                }
+                if (count>=4) {
+                    if(player1)
+                    {
+                        winner = false;
+                    }
+                    else{
+                        winner = true;
+                    }
+                    return true;
+                }
+            }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
+        }
         return false;
     }
-    public boolean diagonalWin() {
+    public boolean diagonalWin(int row, int column) {
+        for (int i=3; i<7; i++){
+            for (int j=0; j< 3; j++) {
+                if (board_pieces.get(i).get(j).isTaken() != null &&
+                        board_pieces.get(i - 1).get(j + 1).isTaken() != null &&
+                        board_pieces.get(i - 2).get(j + 2).isTaken() != null &&
+                        board_pieces.get(i - 3).get(j + 3).isTaken() != null) {
+                    if (board_pieces.get(i).get(j).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 1).get(j + 1).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 2).get(j + 2).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 3).get(j + 3).isTaken().isPlayer1() == Player1Turn) {
+                        if(player1)
+                        {
+                            winner = false;
+                        }
+                        else{
+                            winner = true;
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
+        }
         return false;
     }
-    public boolean reverseDiagonalWin() {
+    public boolean reverseDiagonalWin(int row, int column) {
+        for (int i=3; i<7; i++){
+            for (int j=3; j< 6; j++) {
+                if (board_pieces.get(i).get(j).isTaken() != null &&
+                        board_pieces.get(i - 1).get(j - 1).isTaken() != null &&
+                        board_pieces.get(i - 2).get(j - 2).isTaken() != null &&
+                        board_pieces.get(i - 3).get(j - 3).isTaken() != null) {
+                    if (board_pieces.get(i).get(j).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 1).get(j - 1).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 2).get(j - 2).isTaken().isPlayer1() == Player1Turn &&
+                            board_pieces.get(i - 3).get(j - 3).isTaken().isPlayer1() == Player1Turn) {
+                        if(player1)
+                        {
+                            winner = false;
+                        }
+                        else{
+                            winner = true;
+                        }
+                        return true;
+                    }
+                }
+            }
+        }
+        if(player1)
+        {
+            winner = false;
+        }
+        else{
+            winner = true;
+        }
         return false;
     }
 
@@ -378,17 +474,27 @@ public class Board {
         return false;
     }
 
-    public void greenColor(){
-        this.addPiece(this.context, R.drawable.spartan_green);
+    public void greenColor(float x, float y){
+        Piece piece = new Piece(this.context, R.drawable.spartan_green, x, y);
+        piece.setPlayer1(Player1Turn);
+        pieces.addPiece(piece);
+        dragging = piece;
+        lastRelX = x;
+        lastRelY = y;
         colorPiece = true;
     }
 
-    public void whiteColor(){
-        this.addPiece(this.context, R.drawable.spartan_white);
+    public void whiteColor(float x, float y){
+        Piece piece = new Piece(this.context, R.drawable.spartan_white, x, y);
+        piece.setPlayer1(Player1Turn);
+        pieces.addPiece(piece);
+        dragging = piece;
+        lastRelX = x;
+        lastRelY = y;
         colorPiece = false;
     }
 
-    public void addPiece(Context context, int id){pieces.addPiece(context, id);}
+    public void addPiece(Context context, int id){pieces.addNewPiece(context, id);}
 
     public void onSaveInstanceState(Bundle outState)
     {

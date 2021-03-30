@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String NAME1 = "name1_gameplay";
     public static final String NAME2 = "name2_gameplay";
+
 
     public void onStartGame(View view) {
         Intent intent = new Intent(this, GamePlayActivity.class);

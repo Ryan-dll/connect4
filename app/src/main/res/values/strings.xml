@@ -15,4 +15,5 @@
     <string name="player_won">Player Won!</string>
     <string name="surrender">Surrender</string>
     <string name="main_image_description">The app icon image</string>
+    <string name="done_button">Done</string>
 </resources>

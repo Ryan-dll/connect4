@@ -40,6 +40,12 @@ public class Pieces {
         y = b;
     }
 
-    public void addPiece(Context context, int id){pieces.add(new Piece(context, id, x, y));}
+    public void clear(){
+        pieces.clear();
+    }
+
+    public void addNewPiece(Context context, int id){pieces.add(new Piece(context, id, x, y));}
+
+    public void addPiece(Piece piece) {pieces.add(piece);}
 }
 

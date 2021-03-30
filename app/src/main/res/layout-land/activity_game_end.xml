@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GameEndActivity">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/winner"
-        android:layout_width="271dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignStart="@id/new_game"
         android:layout_alignEnd="@id/new_game"
-        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="-59dp"
         android:layout_marginTop="233dp"
-        android:layout_marginEnd="-80dp"
+        android:layout_marginEnd="-281dp"
         android:text="@string/player_won"
         android:textColor="#4CAF50"
         android:textSize="36sp" />
 
     <Button
         android:id="@+id/new_game"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/winner"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="-276dp"
+        android:layout_marginBottom="-100dp"
         android:onClick="onPlayGame"
         android:text="@string/new_game"
         app:backgroundTint="#4CAF50" />
