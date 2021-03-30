@@ -122,7 +122,7 @@ public class Board {
                 ArrayList<BoardGrid> column = new ArrayList<BoardGrid>();
                 BoardGrid.setSlot(context);
                 for (int j = 0; j < 6; j++) {
-                    BoardGrid BoardPiece = new BoardGrid((i/7f), (j/7f));
+                    BoardGrid BoardPiece = new BoardGrid((i/6f), (j/6f));
                     column.add(BoardPiece);
                 }
                 board_pieces.add(column);
@@ -550,16 +550,16 @@ public class Board {
 
         for(int i = 0; i < placedPieces.size(); i++)
         {
-            pieces.setLocation((float)(i%7)/7,(float)(i/7)/7);
+            pieces.setLocation((float)(i%7)/6,(float)(i/7)/6);
             switch(placedPieces.get(i))
             {
                 case 0:
                     break;
                 case 1:
-                    pieces.addPiece(context, R.drawable.spartan_green);
+                    pieces.addNewPiece(context, R.drawable.spartan_green);
                     break;
                 case 2:
-                    pieces.addPiece(context, R.drawable.spartan_white);
+                    pieces.addNewPiece(context, R.drawable.spartan_white);
                     break;
             }
         }
