@@ -18,10 +18,12 @@
     <string name="done_button">Done</string>
     <string name="Player1DefaultName">Player 1</string>
     <string name="Player2DefaultName">Player 2</string>
+    <string name="join_game_instructions">Enter Game Id</string>
     <string name="loginText">Log in to Connect 4</string>
     <string name="user">Username :</string>
     <string name="pass">Password :</string>
     <string name="login">Login</string>
     <string name="noAccount">Don"'"t have an account? Make one&#160;</string>
     <string name="here">here</string>
+    <string name="joinGame">Join Game</string>
 </resources>
