@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onLogin(View view) {
+        LoginDlg dlg2 = new LoginDlg();
+        dlg2.show(getSupportFragmentManager(), "load");
+    }
+
     private String getNameOne()
     {
         EditText editText = findViewById(R.id.EditText1);
