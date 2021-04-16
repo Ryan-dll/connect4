@@ -545,20 +545,29 @@ public class Board {
         }
 
         outState.putIntegerArrayList(GamePlayActivity.PLACED_PIECES, placedPieces);
+        outState.putBoolean(GamePlayActivity.TURN, Player1Turn);
     }
 
     public void onRestoreState(Context context,Bundle savedInstanceState)
     {
+        if(savedInstanceState.containsKey(GamePlayActivity.TURN))
+        {
+            Player1Turn = savedInstanceState.getBoolean(GamePlayActivity.TURN);
+        }
+
         if(!savedInstanceState.containsKey(GamePlayActivity.PLACED_PIECES))
         {
             return;
         }
         ArrayList<Integer> placedPieces = savedInstanceState.getIntegerArrayList(GamePlayActivity.PLACED_PIECES);
 
+
+
         if(placedPieces == null)
         {
             return;
         }
+
 
         for(int i = 0; i < placedPieces.size(); i++)
         {
