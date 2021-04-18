@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/labelHost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/hostMsg"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/Host"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/labelHost"
+        android:layout_toEndOf="@id/labelHost"
+        android:text="@string/dummy"
+        android:textSize="24sp" />
+</RelativeLayout>

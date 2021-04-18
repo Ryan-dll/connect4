@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onStartLobby(View view) {
+        Intent intent = new Intent(this, JoinGameActivity.class);
+        startActivity(intent);
+    }
+
     public void onLogin(View view) {
         LoginDlg dlg2 = new LoginDlg();
         dlg2.show(getSupportFragmentManager(), "load");

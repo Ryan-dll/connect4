@@ -6,11 +6,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import edu.msu.weath151.Cloud.Cloud;
 
 public class LobbyDlg extends DialogFragment {
     @NonNull
@@ -34,6 +37,13 @@ public class LobbyDlg extends DialogFragment {
                 // Cancel just closes the dialog box
             }
         });
+
+        // Find the list view
+        ListView list = (ListView)view.findViewById(R.id.gameList);
+
+        // Create an adapter
+        final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter();
+        list.setAdapter(adapter);
 
         AlertDialog dlg = builder.create();
 

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Connect4</string>
+    <string name="dummy">dummy</string>
     <string name="game_start_button">Begin Game!</string>
     <string name="game_desc">Sparty Connect 4</string>
     <string name="game_end_button">End Game</string>
@@ -31,4 +32,5 @@
     <string name="createGame">Create Game</string>
     <string name="lobbyMsg">Click create game to make a new lobby, or click join to enter an existing lobby</string>
     <string name="joinMsg">Current list of active games to join</string>
+    <string name="hostMsg">Lobby hosted by &#160;</string>
 </resources>
