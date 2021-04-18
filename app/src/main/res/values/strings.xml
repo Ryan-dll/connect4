@@ -26,4 +26,9 @@
     <string name="noAccount">Don"'"t have an account? Make one&#160;</string>
     <string name="here">here</string>
     <string name="joinGame">Join Game</string>
+    <string name="newAccountLabel">Make a new Connect4 account</string>
+    <string name="makeAccount">Make Account</string>
+    <string name="createGame">Create Game</string>
+    <string name="lobbyMsg">Click create game to make a new lobby, or click join to enter an existing lobby</string>
+    <string name="joinMsg">Current list of active games to join</string>
 </resources>

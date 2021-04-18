@@ -9,29 +9,29 @@
     tools:context=".JoinGameActivity">
 
     <TextView
-        android:id="@+id/labelEditGameID"
+        android:id="@+id/labelMSG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/editGameId"
-        android:layout_alignStart="@id/editGameId"
-        android:layout_centerHorizontal="false"
-        android:text="@string/join_game_instructions" />
+        android:layout_above="@id/buttonJoin"
+        android:layout_centerHorizontal="true"
+        android:text="@string/lobbyMsg"
+        android:textAlignment="center"
+        android:textSize="30sp" />
 
-    <EditText
-        android:id="@+id/editGameId"
+    <Button
+        android:id="@+id/buttonJoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerVertical="true"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:text="@string/joinGame" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editGameId"
-        android:layout_alignStart="@id/editGameId"
-        android:text="@string/joinGame" />
+        android:layout_below="@id/buttonJoin"
+        android:layout_centerHorizontal="true"
+        android:text="@string/createGame" />
 
 </RelativeLayout>
