@@ -107,7 +107,7 @@
                 android:id="@+id/buttonNewAcc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="onLogin"
+                android:onClick="onMakeAccount"
                 android:text="@string/makeAccount" />
         </FrameLayout>
     </RelativeLayout>

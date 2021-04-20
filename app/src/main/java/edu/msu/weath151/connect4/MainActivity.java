@@ -1,12 +1,13 @@
 package edu.msu.weath151.connect4;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import edu.msu.weath151.connect4.Cloud.Cloud;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +31,28 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartLobby(View view) {
         Intent intent = new Intent(this, JoinGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void onMakeAccount(View view)
+    {
+        String nameOne = getNameOne();
+        String nameTwo = getNameTwo();
+        final Cloud cloud = new Cloud(nameOne, nameTwo);
+
+        Thread thread = new Thread(new Runnable()
+            {
+                @Override
+                public void run() {
+                    cloud.makeAccount();
+                }
+            }
+        );
+        thread.start();
+
+        Intent intent = new Intent(this, JoinGameActivity.class);
+        intent.putExtra(NAME1, nameOne);
+        intent.putExtra(NAME2, nameTwo);
         startActivity(intent);
     }
 
