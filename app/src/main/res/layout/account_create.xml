@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/accountInstructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instruction_user_password" />
+
+    <TextView
+        android:id="@+id/create_user_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/editTextUsername"
+        android:layout_alignBottom="@id/editTextUsername"
+        android:gravity="center_vertical"
+        android:text="@string/user" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/accountInstructions"
+        android:layout_toEndOf="@id/create_user_label"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/create_password_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsername"
+        android:layout_alignTop="@id/editTextPassword"
+        android:layout_alignBottom="@id/editTextPassword"
+        android:gravity="center_vertical"
+        android:text="@string/pass" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsername"
+        android:layout_toEndOf="@id/create_password_label"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="14sp" />
+</RelativeLayout>

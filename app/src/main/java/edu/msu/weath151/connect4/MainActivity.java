@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import edu.msu.weath151.connect4.Cloud.Cloud;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListenerAccountDlg{
 
 
     @Override
@@ -36,24 +39,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void onMakeAccount(View view)
     {
-        String nameOne = getNameOne();
-        String nameTwo = getNameTwo();
-        final Cloud cloud = new Cloud(nameOne, nameTwo);
+        AccountDlg dlg = new AccountDlg();
+        dlg.setMakeAccountListener(this);
+        dlg.show(getSupportFragmentManager(), "account");
+    }
 
-        Thread thread = new Thread(new Runnable()
+    @Override
+    public void onMakeAccountFinished(final ArrayList<String> usernamePassword, boolean result) {
+        if (result){
+
+            Intent intent = new Intent(this, JoinGameActivity.class);
+            intent.putExtra(NAME1, usernamePassword.get(0));
+            intent.putExtra(NAME2, usernamePassword.get(1));
+
+            final Intent realIntent = intent;
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(realIntent);
+                }
+            });
+        }
+        else
+        {
+            final MainActivity context = this;
+            runOnUiThread(new Runnable()
             {
                 @Override
                 public void run() {
-                    cloud.makeAccount();
+                    Toast.makeText(
+                            context,
+                            R.string.account_fail,
+                            Toast.LENGTH_LONG)
+                            .show();
                 }
-            }
-        );
-        thread.start();
+            });
+        }
+    }
 
-        Intent intent = new Intent(this, JoinGameActivity.class);
-        intent.putExtra(NAME1, nameOne);
-        intent.putExtra(NAME2, nameTwo);
-        startActivity(intent);
+    public void onMakeAccountFinished()
+    {
+
     }
 
     public void onLogin(View view) {

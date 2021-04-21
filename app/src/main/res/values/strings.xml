@@ -33,4 +33,6 @@
     <string name="lobbyMsg">Click create game to make a new lobby, or click join to enter an existing lobby</string>
     <string name="joinMsg">Current list of active games to join</string>
     <string name="hostMsg">Lobby hosted by &#160;</string>
+    <string name="instruction_user_password">Enter Username And Password</string>
+    <string name="account_fail">Failed to make account</string>
 </resources>
