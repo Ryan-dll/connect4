@@ -3,12 +3,10 @@ package edu.msu.weath151.connect4;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +17,11 @@ import java.util.ArrayList;
 
 import edu.msu.weath151.connect4.Cloud.Cloud;
 
-import static edu.msu.weath151.connect4.MainActivity.NAME1;
-import static edu.msu.weath151.connect4.MainActivity.NAME2;
+public class AccountDlg extends DialogFragment implements ListenerAccountLoadingDlg {
 
-public class AccountDlg extends DialogFragment{
+    private AlertDialog dlg = null;
 
-    AlertDialog dlg = null;
-
+    private boolean threadContinue = true;
 
     @NonNull
     @Override
@@ -41,6 +37,8 @@ public class AccountDlg extends DialogFragment{
         final View view = inflater.inflate(R.layout.account_create, null);
         builder.setView(view);
 
+        final AccountDlg loadinglistener = this;
+
         builder.setPositiveButton(R.string.makeAccount, new DialogInterface.OnClickListener()
         {
             @Override
@@ -53,21 +51,29 @@ public class AccountDlg extends DialogFragment{
 
                 final Cloud cloud = new Cloud(username, password);
 
+                dlg.cancel();
+
                 Thread thread = new Thread(new Runnable()
                     {
                         @Override
                         public void run() {
                             boolean result = cloud.makeAccount();
-
-                            dlg.cancel();
-                            ArrayList<String> list = new ArrayList<>();
-                            list.add(username);
-                            list.add(password);
-                            listener.onMakeAccountFinished(list, result);
+                            if(threadContinue)
+                            {
+                                ArrayList<String> list = new ArrayList<>();
+                                list.add(username);
+                                list.add(password);
+                                listener.onMakeAccountFinished(list, result);
+                            }
                         }
                     }
                 );
                 thread.start();
+
+                AccountLoadingDlg dlg2 = new AccountLoadingDlg();
+                dlg2.setListener(loadinglistener);
+                dlg2.show(getFragmentManager(), "accountloading");
+
             }
         });
 
@@ -82,6 +88,12 @@ public class AccountDlg extends DialogFragment{
         dlg = builder.create();
 
         return dlg;
+    }
+
+    @Override
+    public void onLoadingDlgCancel()
+    {
+        threadContinue = false;
     }
 
     private ListenerAccountDlg listener = null;

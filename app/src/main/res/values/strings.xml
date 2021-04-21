@@ -35,4 +35,5 @@
     <string name="hostMsg">Lobby hosted by &#160;</string>
     <string name="instruction_user_password">Enter Username And Password</string>
     <string name="account_fail">Failed to make account</string>
+    <string name="loading">Loading…</string>
 </resources>
