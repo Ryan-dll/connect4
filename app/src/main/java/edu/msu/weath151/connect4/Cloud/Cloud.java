@@ -17,10 +17,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class Cloud {
-    private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~shorery1/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
     public static final String MAKE_GAME_PATH = "game-create.php";
+    public static final String LOGIN_ACCOUNT_PATH = "login-attempt.php";
     private String USER = "";
     private String PASSWORD = "";
     private ListenerGameCreateDlg onGameCreate = null;

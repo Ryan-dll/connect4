@@ -1,12 +1,12 @@
 package edu.msu.weath151.connect4;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
 
     public static final String USERNAME = "name1_gameplay";
     public static final String PASSWORD = "name2_gameplay";
+
+    boolean loginResult = false;
 
 
     public void onStartGame(View view) {
@@ -82,8 +84,44 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
     }
 
     public void onLogin(View view) {
-        LoginDlg dlg2 = new LoginDlg();
-        dlg2.show(getSupportFragmentManager(), "load");
+        String nameOne = getNameOne();
+        String nameTwo = getNameTwo();
+        final Cloud cloud = new Cloud(nameOne, nameTwo);
+
+        Thread thread = new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                loginResult = cloud.loginAccount();
+            }
+        }
+        );
+        thread.start();
+
+        try {
+            thread.join();
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (loginResult == true){
+            Intent intent = new Intent(this, JoinGameActivity.class);
+            intent.putExtra(NAME1, nameOne);
+            intent.putExtra(NAME2, nameTwo);
+            startActivity(intent);
+        }
+        else {
+            view.post(new Runnable() {
+                @Override
+                public void run() {
+                    String string = null;
+                    string = getString(R.string.LoginToast);
+                    Toast.makeText(view.getContext(), string, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
     }
 
     private String getNameOne()
