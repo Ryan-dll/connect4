@@ -24,8 +24,8 @@ public class JoinGameActivity extends AppCompatActivity implements ListenerGameC
     public void onCreateGame(View view)
     {
         CreateGameDlg dlg = new CreateGameDlg();
-        dlg.setUsername(/*getIntent().getStringExtra(MainActivity.USERNAME*/ "benjamin");
-        dlg.setPassword(/*getIntent().getStringExtra(MainActivity.PASSWORD*/ "testing");
+        dlg.setUsername(getIntent().getStringExtra(MainActivity.USERNAME));
+        dlg.setPassword(getIntent().getStringExtra(MainActivity.PASSWORD));
         dlg.setListener(this);
         dlg.show(getSupportFragmentManager(), "createGame");
     }

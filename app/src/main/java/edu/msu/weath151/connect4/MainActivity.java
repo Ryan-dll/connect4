@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import edu.msu.weath151.connect4.Cloud.Cloud;
+
 public class MainActivity extends AppCompatActivity implements ListenerAccountDlg{
 
 
@@ -90,9 +92,10 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
 
         Thread thread = new Thread(new Runnable()
         {
+
             @Override
             public void run() {
-                loginResult = cloud.loginAccount();
+                //loginResult = cloud.loginAccount();
             }
         }
         );
@@ -107,8 +110,8 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
 
         if (loginResult == true){
             Intent intent = new Intent(this, JoinGameActivity.class);
-            intent.putExtra(NAME1, nameOne);
-            intent.putExtra(NAME2, nameTwo);
+            intent.putExtra(USERNAME, nameOne);
+            intent.putExtra(PASSWORD, nameTwo);
             startActivity(intent);
         }
         else {
