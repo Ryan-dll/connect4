@@ -15,9 +15,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class Cloud {
-    private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~shorery1/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
+    public static final String LOGIN_ACCOUNT_PATH = "login-attempt.php";
     private String USER = "";
     private String PASSWORD = "";
 
@@ -58,6 +59,51 @@ public class Cloud {
         try
         {
             Response<Result> response = service.makeAccount(USER, MAGIC, PASSWORD).execute();
+
+            if(!response.isSuccessful())
+            {
+                return false;
+            }
+
+            Result result = response.body();
+
+            if(result.getStatus().equals("yes"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch(IOException e)
+        {
+            return false;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+    }
+
+    public boolean loginAccount()
+    {
+        String empty = "";
+
+        if(USER == empty)
+        {
+            return false;
+        }
+        if(PASSWORD == null)
+        {
+            return false;
+        }
+
+        ConnectService service = retrofit.create(ConnectService.class);
+
+        try
+        {
+            Response<Result> response = service.loginAccount(USER, MAGIC, PASSWORD).execute();
 
             if(!response.isSuccessful())
             {
