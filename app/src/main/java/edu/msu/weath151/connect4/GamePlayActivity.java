@@ -3,12 +3,9 @@ package edu.msu.weath151.connect4;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class GamePlayActivity extends AppCompatActivity {
@@ -29,10 +26,11 @@ public class GamePlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_play);
 
         Intent intent = getIntent();
-        String player1Name = intent.getStringExtra(MainActivity.NAME1);
-        String player2Name = intent.getStringExtra(MainActivity.NAME2);
-        player1_Name = intent.getStringExtra(MainActivity.NAME1);
-        player2_Name = intent.getStringExtra(MainActivity.NAME2);
+        /*
+        String player1Name = intent.getStringExtra(MainActivity.USERNAME);
+        String player2Name = intent.getStringExtra(MainActivity.PASSWORD);
+        player1_Name = intent.getStringExtra(MainActivity.USERNAME);
+        player2_Name = intent.getStringExtra(MainActivity.PASSWORD);
         TextView player1 = (TextView)findViewById(R.id.textView);
         TextView player2 = (TextView)findViewById(R.id.textView2);
         getView().getBoard().setNames(player1Name,player2Name);
@@ -46,7 +44,7 @@ public class GamePlayActivity extends AppCompatActivity {
         }
         player1.setText(player1Name);
         player2.setText(player2Name);
-
+        */
         if(savedInstanceState != null)
         {
             getView().getBoard().onRestoreState(this ,savedInstanceState);

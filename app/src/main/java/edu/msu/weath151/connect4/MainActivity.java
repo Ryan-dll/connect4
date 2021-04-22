@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.msu.weath151.connect4.Cloud.Cloud;
-
 public class MainActivity extends AppCompatActivity implements ListenerAccountDlg{
 
 
@@ -21,14 +19,14 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
         setContentView(R.layout.activity_main);
     }
 
-    public static final String NAME1 = "name1_gameplay";
-    public static final String NAME2 = "name2_gameplay";
+    public static final String USERNAME = "name1_gameplay";
+    public static final String PASSWORD = "name2_gameplay";
 
 
     public void onStartGame(View view) {
         Intent intent = new Intent(this, GamePlayActivity.class);
-        intent.putExtra(NAME1, getNameOne());
-        intent.putExtra(NAME2, getNameTwo());
+        intent.putExtra(USERNAME, getNameOne());
+        intent.putExtra(PASSWORD, getNameTwo());
         startActivity(intent);
     }
 
@@ -49,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
         if (result){
 
             Intent intent = new Intent(this, JoinGameActivity.class);
-            intent.putExtra(NAME1, usernamePassword.get(0));
-            intent.putExtra(NAME2, usernamePassword.get(1));
+            intent.putExtra(USERNAME, usernamePassword.get(0));
+            intent.putExtra(PASSWORD, usernamePassword.get(1));
 
             final Intent realIntent = intent;
 

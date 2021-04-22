@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
+import edu.msu.weath151.connect4.ListenerGameCreateDlg;
 import edu.msu.weath151.connect4.R;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -18,8 +20,14 @@ public class Cloud {
     private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
+    public static final String MAKE_GAME_PATH = "game-create.php";
     private String USER = "";
     private String PASSWORD = "";
+    private ListenerGameCreateDlg onGameCreate = null;
+
+    public void setOnGameCreate(ListenerGameCreateDlg onGameCreate) {
+        this.onGameCreate = onGameCreate;
+    }
 
     private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -83,6 +91,46 @@ public class Cloud {
         {
             return false;
         }
+    }
+
+    public boolean createGame(String username, String password)
+    {
+        ConnectService service = retrofit.create(ConnectService.class);
+        try
+        {
+            Response<GameCreate> response = service.makeGame(username, MAGIC, password).execute();
+
+            if(!response.isSuccessful())
+            {
+                return false;
+            }
+
+            GameCreate body = response.body();
+
+            if(!body.getStatus().equals("yes"))
+            {
+                return false;
+            }
+
+            int gameid = body.getGame();
+
+            int userid = body.getUser();
+
+            String status = body.getStatus();
+
+            onGameCreate.onFinished(gameid, userid);
+
+        }
+        catch(IOException e)
+        {
+            return false;
+        }
+        catch(Exception e)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /**

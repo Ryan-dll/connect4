@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonJoin"
         android:layout_centerHorizontal="true"
+        android:onClick="onCreateGame"
         android:text="@string/createGame" />
 
 </RelativeLayout>
