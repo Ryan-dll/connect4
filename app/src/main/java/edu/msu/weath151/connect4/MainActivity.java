@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
 
             @Override
             public void run() {
-                //loginResult = cloud.loginAccount();
+                loginResult = cloud.loginAccount();
             }
         }
         );

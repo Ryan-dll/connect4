@@ -1,13 +1,16 @@
 package edu.msu.weath151.connect4.Cloud;
 
-import edu.msu.weath151.connect4.Cloud.Models.Account;
 import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
+import edu.msu.weath151.connect4.Cloud.Models.GamesCatalog;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
+import static edu.msu.weath151.connect4.Cloud.Cloud.DISPLAY_GAME_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.LOGIN_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_GAME_PATH;
@@ -35,5 +38,10 @@ public interface ConnectService {
             @Field("username") String username,
             @Field("magic") String magic,
             @Field("password") String password
+    );
+
+    @GET(DISPLAY_GAME_PATH)
+    Call<GamesCatalog> getCatalog(
+            @Query("magic") String magic
     );
 }
