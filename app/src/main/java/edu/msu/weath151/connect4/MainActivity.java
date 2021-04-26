@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
     }
 
     public void onLogin(View view) {
+
         String nameOne = getNameOne();
         String nameTwo = getNameTwo();
         final Cloud cloud = new Cloud(nameOne, nameTwo);
@@ -107,8 +108,7 @@ public class MainActivity extends AppCompatActivity implements ListenerAccountDl
         catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        if (loginResult == true){
+        if (loginResult){
             Intent intent = new Intent(this, JoinGameActivity.class);
             intent.putExtra(USERNAME, nameOne);
             intent.putExtra(PASSWORD, nameTwo);

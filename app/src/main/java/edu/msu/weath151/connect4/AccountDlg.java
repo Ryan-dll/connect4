@@ -21,7 +21,7 @@ public class AccountDlg extends DialogFragment implements ListenerAccountLoading
 
     private AlertDialog dlg = null;
 
-    private boolean threadContinue = true;
+    private volatile boolean threadContinue = true;
 
     @NonNull
     @Override
@@ -36,8 +36,6 @@ public class AccountDlg extends DialogFragment implements ListenerAccountLoading
         @SuppressLint("InflateParams")
         final View view = inflater.inflate(R.layout.account_create, null);
         builder.setView(view);
-
-        final AccountDlg loadinglistener = this;
 
         builder.setPositiveButton(R.string.makeAccount, new DialogInterface.OnClickListener()
         {
@@ -71,7 +69,7 @@ public class AccountDlg extends DialogFragment implements ListenerAccountLoading
                 thread.start();
 
                 AccountLoadingDlg dlg2 = new AccountLoadingDlg();
-                dlg2.setListener(loadinglistener);
+                dlg2.setListener(AccountDlg.this);
                 dlg2.show(getFragmentManager(), "accountloading");
 
             }

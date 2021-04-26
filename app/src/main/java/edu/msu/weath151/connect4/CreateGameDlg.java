@@ -48,14 +48,12 @@ public class CreateGameDlg extends DialogFragment implements ListenerGameCreateD
             }
         });
 
-        final CreateGameDlg myListener = this;
-
         Thread thread = new Thread(new Runnable()
         {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
-                cloud.setOnGameCreate(myListener);
+                cloud.setOnGameCreate(CreateGameDlg.this);
                 boolean result = cloud.createGame(username, password);
                 dlg.cancel();
             }

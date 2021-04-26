@@ -87,6 +87,16 @@
             android:text="@string/surrender"
             android:textSize="24sp" />
 
+        <Button
+            android:id="@+id/makeMove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/button"
+            android:layout_centerHorizontal="true"
+            android:onClick="makeMove"
+            android:textSize="24sp"
+            tools:text="@string/make_move" />
+
     </RelativeLayout>
 
 </LinearLayout>

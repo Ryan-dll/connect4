@@ -32,12 +32,16 @@ public class JoinGameActivity extends AppCompatActivity implements ListenerGameC
 
     public static String USERID = "userid";
     public static String GAMEID = "gameid";
+    public static String USERNAME = "usernamefromJoinGame";
+    public static String PASSWORD = "passwordfromJoinGame";
 
     @Override
     public void onFinished(int game, int user) {
         Intent intent = new Intent(getApplicationContext(), GamePlayActivity.class);
         intent.putExtra(USERID, user);
         intent.putExtra(GAMEID, game);
+        intent.putExtra(USERNAME, getIntent().getStringExtra(MainActivity.USERNAME));
+        intent.putExtra(PASSWORD, getIntent().getStringExtra(MainActivity.PASSWORD));
 
         final Intent finalIntent = intent;
 

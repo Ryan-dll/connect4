@@ -3,6 +3,7 @@ package edu.msu.weath151.connect4.Cloud;
 import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
 import edu.msu.weath151.connect4.Cloud.Models.GamesCatalog;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
+import edu.msu.weath151.connect4.Cloud.Models.MadeMove;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,6 +16,7 @@ import static edu.msu.weath151.connect4.Cloud.Cloud.JOIN_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.LOGIN_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_GAME_PATH;
+import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_MOVE_PATH;
 
 public interface ConnectService {
     @FormUrlEncoded
@@ -52,5 +54,16 @@ public interface ConnectService {
             @Field("magic") String magic,
             @Field("password") String password,
             @Field("gameid") String gameid
+    );
+
+    @FormUrlEncoded
+    @POST(MAKE_MOVE_PATH)
+    Call<MadeMove> makeMove(
+            @Field("user") String user,
+            @Field("magic") String magic,
+            @Field("pass") String pass,
+            @Field("gameid") int gameId,
+            @Field("player") String player,
+            @Field("move") int move
     );
 }

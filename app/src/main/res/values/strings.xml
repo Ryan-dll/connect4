@@ -41,4 +41,5 @@
     <string name="catalog_fail">Failed to load active games</string>
     <string name="loading_game">Loading into game</string>
     <string name="join_fail_toast">Failed to join game! Please try again</string>
+    <string name="make_move">MAKE MOVE</string>
 </resources>

@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import edu.msu.weath151.connect4.Cloud.Cloud;
 
 public class GamePlayActivity extends AppCompatActivity {
 
@@ -24,9 +27,9 @@ public class GamePlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
-
-        Intent intent = getIntent();
         /*
+        Intent intent = getIntent();
+
         String player1Name = intent.getStringExtra(MainActivity.USERNAME);
         String player2Name = intent.getStringExtra(MainActivity.PASSWORD);
         player1_Name = intent.getStringExtra(MainActivity.USERNAME);
@@ -44,7 +47,9 @@ public class GamePlayActivity extends AppCompatActivity {
         }
         player1.setText(player1Name);
         player2.setText(player2Name);
-        */
+
+         */
+
         if(savedInstanceState != null)
         {
             getView().getBoard().onRestoreState(this ,savedInstanceState);
@@ -82,6 +87,24 @@ public class GamePlayActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         getView().getBoard().onSaveInstanceState(outState);
+    }
+
+    public void makeMove(View view)
+    {
+        GameplayView gamePlayView = getView();
+        final Intent intent = getIntent();
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run() {
+                // Temp set whichUser to 1
+                String newGameState = new Cloud()
+                        .makeMove(intent.getIntExtra(JoinGameActivity.GAMEID, 0),
+                                intent.getStringExtra(JoinGameActivity.USERNAME),
+                                intent.getStringExtra(JoinGameActivity.PASSWORD),
+                                gamePlayView.getMove(),"1");
+            }
+        }).start();
     }
 
     public static final String PLACED_PIECES = "placed_pieces";

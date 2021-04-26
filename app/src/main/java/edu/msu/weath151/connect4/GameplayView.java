@@ -69,6 +69,11 @@ public class GameplayView extends View {
 
     public void addPiece(Context context,int id){board.addPiece(context,id);}
 
+    public int getMove()
+    {
+        return board.getMove();
+    }
+
     public Board getBoard() {
         return board;
     }

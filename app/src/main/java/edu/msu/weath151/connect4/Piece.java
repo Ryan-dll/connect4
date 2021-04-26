@@ -104,6 +104,14 @@ public class Piece {
         canvas.restore();
     }
 
+    public int getPositionSlot()
+    {
+        int row = Math.round(x*6);
+        int coloumn = Math.round(y*6);
+
+        return row*7 + 6;
+    }
+
     /**
      * Move the puzzle piece by dx, dy
      * @param dx x amount to move

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import edu.msu.weath151.connect4.Cloud.Models.ActiveGame;
 import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
 import edu.msu.weath151.connect4.Cloud.Models.GamesCatalog;
+import edu.msu.weath151.connect4.Cloud.Models.MadeMove;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
 import edu.msu.weath151.connect4.ListenerGameCreateDlg;
 import edu.msu.weath151.connect4.R;
@@ -28,6 +29,7 @@ public class Cloud {
     public static final String MAKE_GAME_PATH = "game-create.php";
     public static final String LOGIN_ACCOUNT_PATH = "login-attempt.php";
     public static final String DISPLAY_GAME_PATH = "game-active-catalog.php";
+    public static final String MAKE_MOVE_PATH = "make-move.php";
     public static final String JOIN_PATH = "game-join.php";
 
     private String USER = "";
@@ -223,6 +225,35 @@ public class Cloud {
         }
 
         return true;
+    }
+
+    public String makeMove(int gameid, String username, String password, int move, String whichUser)
+    {
+        ConnectService service = retrofit.create(ConnectService.class);
+        try
+        {
+            Response<MadeMove> response = service.makeMove(username, MAGIC, password,
+                    gameid, whichUser, move).execute();
+
+            if(!response.isSuccessful())
+            {
+                return "";
+            }
+            MadeMove body = response.body();
+            if(body.getStatus().equals("no"))
+            {
+                return "";
+            }
+            return body.getGame();
+        }
+        catch(IOException e)
+        {
+            return "";
+        }
+        catch(Exception e)
+        {
+            return "";
+        }
     }
 
     /**

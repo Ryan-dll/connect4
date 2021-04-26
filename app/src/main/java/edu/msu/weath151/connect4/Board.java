@@ -63,6 +63,19 @@ public class Board {
      */
     private Piece dragging = null;
 
+    public Piece getDragging() {
+        return dragging;
+    }
+
+    public int getMove()
+    {
+        if (dragging != null)
+        {
+            return dragging.getPositionSlot();
+        }
+        return -1;
+    }
+
     /**
      * Most recent relative X touch when dragging
      */
@@ -202,15 +215,17 @@ public class Board {
             case MotionEvent.ACTION_DOWN:
                 onTouched(relX, relY);
                 //pieces.setLocation(relX, relY);
-                if(Player1Turn){
-                    greenColor(relX, relY);
-                    player1 = true;
-                    player2 = false;
-                }
-                else{
-                    whiteColor(relX, relY);
-                    player2 = true;
-                    player1 = false;
+                if (dragging == null) {
+                    if (Player1Turn) {
+                        greenColor(relX, relY);
+                        player1 = true;
+                        player2 = false;
+                    } else {
+                        whiteColor(relX, relY);
+
+                        player2 = true;
+                        player1 = false;
+                    }
                 }
                 return true;
 
@@ -279,8 +294,6 @@ public class Board {
                 Player1Turn = !Player1Turn;
             }
         }
-
-        dragging = null;
     }
 
     public boolean isValid(int row, int column) {
@@ -289,12 +302,13 @@ public class Board {
             for (int i = 5; i >= column; i--) {
                 BoardGrid piece = board_pieces.get(row).get(i);
                 if (piece.isTaken() == null) {
-                    piece.setTaken(dragging);
+                    //piece.setTaken(dragging);
                     dropPiece(row, i);
                     return true;
                 }
             }
             pieces.remove(dragging);
+            dragging = null;
             return false;
 
         }
@@ -470,6 +484,8 @@ public class Board {
      */
     private boolean onTouched(float x, float y) {
 
+
+        /*
         // Check each piece to see if it has been hit
         for(int p=pieces.getPieces().size()-1; p>=0;  p--) {
             if( pieces.getPieces().get(p).hit(x, y, boardSize, scaleFactor)) {
@@ -483,7 +499,13 @@ public class Board {
             }
         }
 
-        return false;
+         */
+        if (dragging != null)
+        {
+            lastRelX = x;
+            lastRelY = y;
+        }
+        return true;
     }
 
     public void greenColor(float x, float y){
