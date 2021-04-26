@@ -59,7 +59,7 @@ public class Cloud {
         this.PASSWORD = PASSWORD;
     }
 
-    public String joinGame(String gameId){
+    public String joinGame(String GAMEID){
         if(USER == null)
         {
             return null;
@@ -69,7 +69,7 @@ public class Cloud {
 
         try
         {
-            Response<Result> response = service.joinGame(USER, MAGIC).execute();
+            Response<Result> response = service.joinGame(USER, MAGIC, PASSWORD, GAMEID).execute();
 
             if(!response.isSuccessful())
             {

@@ -49,6 +49,8 @@ public interface ConnectService {
     @POST(JOIN_PATH)
     Call<Result> joinGame(
             @Field("username") String username,
-            @Field("magic") String magic
+            @Field("magic") String magic,
+            @Field("password") String password,
+            @Field("gameid") String gameid
     );
 }
