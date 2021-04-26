@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class Cloud {
-    private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~shorery1/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
     public static final String MAKE_GAME_PATH = "game-create.php";
@@ -315,7 +315,7 @@ public class Cloud {
             }
 
             TextView tv = (TextView)view.findViewById(R.id.Host);
-            tv.setText(catalog.getItems().get(position).getUser());
+            tv.setText(catalog.getItems().get(position).getId());
 
             return view;
         }
