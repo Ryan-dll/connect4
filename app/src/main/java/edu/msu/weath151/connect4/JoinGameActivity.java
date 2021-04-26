@@ -1,12 +1,10 @@
 package edu.msu.weath151.connect4;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class JoinGameActivity extends AppCompatActivity implements ListenerGameCreateDlg{
 
@@ -18,6 +16,8 @@ public class JoinGameActivity extends AppCompatActivity implements ListenerGameC
 
     public void onJoinGame(View view) {
         LobbyDlg dlg2 = new LobbyDlg();
+        dlg2.setUSER(getIntent().getStringExtra(MainActivity.USERNAME));
+        dlg2.setPASS(getIntent().getStringExtra(MainActivity.PASSWORD));
         dlg2.show(getSupportFragmentManager(), "joinGame");
     }
 

@@ -346,7 +346,7 @@ public class Cloud {
             }
 
             TextView tv = (TextView)view.findViewById(R.id.Host);
-            tv.setText(catalog.getItems().get(position).getId());
+            tv.setText(catalog.getItems().get(position).getUser());
 
             return view;
         }

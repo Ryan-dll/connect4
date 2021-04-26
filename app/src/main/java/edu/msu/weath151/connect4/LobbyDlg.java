@@ -16,6 +16,25 @@ import edu.msu.weath151.connect4.Cloud.Cloud;
 
 public class LobbyDlg extends DialogFragment {
 
+    private String USER = "";
+    private String PASS = "";
+
+    public String getUSER() {
+        return USER;
+    }
+
+    public void setUSER(String USER) {
+        this.USER = USER;
+    }
+
+    public String getPASS() {
+        return PASS;
+    }
+
+    public void setPASS(String PASS) {
+        this.PASS = PASS;
+    }
+
     /**
      * Create the dialog box
      * @param savedInstanceState The saved instance bundle
@@ -63,6 +82,8 @@ public class LobbyDlg extends DialogFragment {
 
                 JoiningDlg loadDlg = new JoiningDlg();
                 loadDlg.setCatId(catId);
+                loadDlg.setPASS(PASS);
+                loadDlg.setUSER(USER);
                 loadDlg.show(getActivity().getSupportFragmentManager(), "loading game");
             }
 

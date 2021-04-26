@@ -48,6 +48,7 @@ public interface ConnectService {
             @Query("magic") String magic
     );
 
+    @FormUrlEncoded
     @POST(JOIN_PATH)
     Call<Result> joinGame(
             @Field("username") String username,

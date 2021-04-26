@@ -18,6 +18,24 @@ import static edu.msu.weath151.connect4.JoinGameActivity.USERID;
 public class JoiningDlg extends DialogFragment {
 
     private String catId;
+    private String USER = "";
+    private String PASS = "";
+
+    public String getUSER() {
+        return USER;
+    }
+
+    public void setUSER(String USER) {
+        this.USER = USER;
+    }
+
+    public String getPASS() {
+        return PASS;
+    }
+
+    public void setPASS(String PASS) {
+        this.PASS = PASS;
+    }
 
     /**
      * Set true if we want to cancel
@@ -81,7 +99,7 @@ public class JoiningDlg extends DialogFragment {
 
             @Override
             public void run() {
-                Cloud cloud = new Cloud();
+                Cloud cloud = new Cloud(USER,PASS);
                 String result = cloud.joinGame(catId);
 
                 if(cancel) {
