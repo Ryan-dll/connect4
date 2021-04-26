@@ -60,6 +60,10 @@ public class LobbyDlg extends DialogFragment {
 
                 // Dismiss the dialog box
                 dlg.dismiss();
+
+                JoiningDlg loadDlg = new JoiningDlg();
+                loadDlg.setCatId(catId);
+                loadDlg.show(getActivity().getSupportFragmentManager(), "loading game");
             }
 
         });

@@ -39,4 +39,6 @@
     <string name="loading">Loading…</string>
     <string name="creating_game">Creating Game…</string>
     <string name="catalog_fail">Failed to load active games</string>
+    <string name="loading_game">Loading into game</string>
+    <string name="join_fail_toast">Failed to join game! Please try again</string>
 </resources>

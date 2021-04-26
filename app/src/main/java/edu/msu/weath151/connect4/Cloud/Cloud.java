@@ -22,12 +22,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class Cloud {
-    private static final String BASE_URL = "https://webdev.cse.msu.edu/~shorery1/cse476/Project2/";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
     public static final String MAKE_GAME_PATH = "game-create.php";
     public static final String LOGIN_ACCOUNT_PATH = "login-attempt.php";
     public static final String DISPLAY_GAME_PATH = "game-active-catalog.php";
+    public static final String JOIN_PATH = "game-join.php";
 
     private String USER = "";
     private String PASSWORD = "";
@@ -56,6 +57,45 @@ public class Cloud {
     {
         this.USER = USER;
         this.PASSWORD = PASSWORD;
+    }
+
+    public String joinGame(String gameId){
+        if(USER == null)
+        {
+            return null;
+        }
+
+        ConnectService service = retrofit.create(ConnectService.class);
+
+        try
+        {
+            Response<Result> response = service.joinGame(USER, MAGIC).execute();
+
+            if(!response.isSuccessful())
+            {
+                return null;
+            }
+
+            Result result = response.body();
+
+            if(result.getStatus().equals("yes"))
+            {
+                return USER;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch(IOException e)
+        {
+            return null;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+
     }
 
     public boolean makeAccount()
