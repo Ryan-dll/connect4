@@ -258,14 +258,15 @@ public class Board {
                         piece = new Piece(this.context,
                                 R.drawable.spartan_green,
                                 board_pieces.get(b).get(i).getX(),
-                                board_pieces.get(b).get(i).getX());
+                                board_pieces.get(b).get(i).getY());
                     }
                     else {
                         piece = new Piece(this.context,
                                 R.drawable.spartan_white,
                                 board_pieces.get(b).get(i).getX(),
-                                board_pieces.get(b).get(i).getX());
+                                board_pieces.get(b).get(i).getY());
                     }
+                    float q  = board_pieces.get(b).get(i).getX();
                     board_pieces.get(b).get(i).setTaken(piece);
                 }
             }

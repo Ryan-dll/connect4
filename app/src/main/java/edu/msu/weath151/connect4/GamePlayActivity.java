@@ -66,7 +66,7 @@ public class GamePlayActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
-                String result = cloud.grabGamestate("39");
+                String result = cloud.grabGamestate("48");
 
 
                 if (result != null){
