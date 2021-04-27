@@ -1,6 +1,7 @@
 package edu.msu.weath151.connect4.Cloud;
 
 import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
+import edu.msu.weath151.connect4.Cloud.Models.GameState;
 import edu.msu.weath151.connect4.Cloud.Models.GamesCatalog;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
 import edu.msu.weath151.connect4.Cloud.Models.MadeMove;
@@ -18,6 +19,7 @@ import static edu.msu.weath151.connect4.Cloud.Cloud.LOGIN_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_GAME_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_MOVE_PATH;
+import static edu.msu.weath151.connect4.Cloud.Cloud.REQUEST_GAME_PATH;
 
 public interface ConnectService {
     @FormUrlEncoded
@@ -46,7 +48,10 @@ public interface ConnectService {
 
     @GET(DISPLAY_GAME_PATH)
     Call<GamesCatalog> getCatalog(
-            @Query("magic") String magic
+            @Query("magic") String magic,
+            @Query("username") String username,
+            @Query("password") String password
+
     );
 
     @FormUrlEncoded
@@ -76,5 +81,11 @@ public interface ConnectService {
             @Query("pass") String pass,
             @Query("gameid") int gameId,
             @Query("player") String player
+    );
+
+    @GET(REQUEST_GAME_PATH)
+    Call<GameState> requestGamestate(
+            @Query("magic") String magic,
+            @Query("gameid") String gameid
     );
 }

@@ -1,16 +1,12 @@
 package edu.msu.weath151.connect4;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -250,6 +246,14 @@ public class Board {
         }
 
         return false;
+    }
+
+    public void updateGame(String gamestate) {
+        for (int i = 0; i < 7; i++){
+            for (int b = 0; i < 6; i++){
+
+            }
+        }
     }
 
     public void SnapPiece(float relX, float relY){

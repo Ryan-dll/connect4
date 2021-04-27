@@ -1,16 +1,16 @@
 package edu.msu.weath151.connect4;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import edu.msu.weath151.connect4.Cloud.Cloud;
+
+import static edu.msu.weath151.connect4.JoinGameActivity.GAMEID;
 
 public class GamePlayActivity extends AppCompatActivity {
 
@@ -19,6 +19,7 @@ public class GamePlayActivity extends AppCompatActivity {
     public static final String PLAYER1_NAME = "Player1";
     public static final String PLAYER2_NAME = "Player2";
     public static final String TURN = "turn";
+    private String GAME_ID = "";
 
     String player1_Name;
     String player2_Name;
@@ -28,9 +29,11 @@ public class GamePlayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
-        /*
+
         Intent intent = getIntent();
 
+        GAME_ID = intent.getStringExtra(GAMEID);
+        /*
         String player1Name = intent.getStringExtra(MainActivity.USERNAME);
         String player2Name = intent.getStringExtra(MainActivity.PASSWORD);
         player1_Name = intent.getStringExtra(MainActivity.USERNAME);
@@ -55,6 +58,35 @@ public class GamePlayActivity extends AppCompatActivity {
         {
             getView().getBoard().onRestoreState(this ,savedInstanceState);
         }
+    }
+
+    public void onRequestGameState(View view){
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Cloud cloud = new Cloud();
+                String result = cloud.grabGamestate(GAME_ID);
+
+
+                if (result != null){
+                    getView().getBoard().updateGame(result);
+                }
+                else {
+/*                    runOnUiThread(new Runnable()
+                    {
+                        @Override
+                        public void run() {
+                            Toast.makeText(
+                                    this,
+                                    R.string.join_fail_toast,
+                                    Toast.LENGTH_LONG)
+                                    .show();
+                        }
+                    });*/
+                }
+            }
+        }).start();
     }
 
 

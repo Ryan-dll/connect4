@@ -97,6 +97,13 @@
             android:textSize="24sp"
             tools:text="@string/make_move" />
 
+        <Button
+            android:id="@+id/TestGameState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRequestGameState"
+            android:text="@string/dummy" />
+
     </RelativeLayout>
 
 </LinearLayout>

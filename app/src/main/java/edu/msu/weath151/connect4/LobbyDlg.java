@@ -66,6 +66,8 @@ public class LobbyDlg extends DialogFragment {
 
         // Create an adapter
         final Cloud.CatalogAdapter adapter = new Cloud.CatalogAdapter(list);
+        adapter.setUser(USER);
+        adapter.setPass(PASS);
         list.setAdapter(adapter);
 
         list.setOnItemClickListener(new ListView.OnItemClickListener() {

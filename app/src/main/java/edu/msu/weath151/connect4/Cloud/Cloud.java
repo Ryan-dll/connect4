@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import edu.msu.weath151.connect4.Cloud.Models.ActiveGame;
 import edu.msu.weath151.connect4.Cloud.Models.GameCreate;
+import edu.msu.weath151.connect4.Cloud.Models.GameState;
 import edu.msu.weath151.connect4.Cloud.Models.GamesCatalog;
 import edu.msu.weath151.connect4.Cloud.Models.MadeMove;
 import edu.msu.weath151.connect4.Cloud.Models.Result;
@@ -23,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class Cloud {
-    private static final String BASE_URL = "https://webdev.cse.msu.edu/~weath151/cse476/Project2/";
+    private static final String BASE_URL = "https://webdev.cse.msu.edu/~shorery1/cse476/Project2/";
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     public static final String MAKE_ACCOUNT_PATH = "user-create.php";
     public static final String MAKE_GAME_PATH = "game-create.php";
@@ -32,6 +33,7 @@ public class Cloud {
     public static final String MAKE_MOVE_PATH = "make-move.php";
     public static final String JOIN_PATH = "game-join.php";
     public static final String GET_MOVE_PATH = "get-move.php";
+    public static final String REQUEST_GAME_PATH = "request-gamestate.php";
 
     private String USER = "";
     private String PASSWORD = "";
@@ -60,6 +62,41 @@ public class Cloud {
     {
         this.USER = USER;
         this.PASSWORD = PASSWORD;
+    }
+
+    public String grabGamestate(String GAMEID){
+
+        ConnectService service = retrofit.create(ConnectService.class);
+
+        try
+        {
+            Response<GameState> response = service.requestGamestate(MAGIC, GAMEID).execute();
+
+            if(!response.isSuccessful())
+            {
+                return null;
+            }
+
+            GameState result = response.body();
+
+            if(result.getStatus().equals("yes"))
+            {
+                return response.body().getGame();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch(IOException e)
+        {
+            return null;
+        }
+        catch(Exception e)
+        {
+            return null;
+        }
+
     }
 
     public String joinGame(String GAMEID){
@@ -293,7 +330,25 @@ public class Cloud {
      */
     public static class CatalogAdapter extends BaseAdapter {
 
+        private String user;
 
+        public String getUser() {
+            return user;
+        }
+
+        public void setUser(String user) {
+            this.user = user;
+        }
+
+        public String getPass() {
+            return pass;
+        }
+
+        public void setPass(String pass) {
+            this.pass = pass;
+        }
+
+        private String pass;
         /**
          * The items we display in the list box. Initially this is
          * null until we get items from the server.
@@ -341,7 +396,7 @@ public class Cloud {
 
         public GamesCatalog getCatalog() throws IOException {
             ConnectService service = retrofit.create(ConnectService.class);
-            Response<GamesCatalog> response = service.getCatalog(MAGIC).execute();
+            Response<GamesCatalog> response = service.getCatalog(MAGIC, user, pass).execute();
             // check if request failed
             if (!response.isSuccessful()) {
                 Log.e("getCatalog", "Failed to get catalog, response code is = " + response.code());
