@@ -60,6 +60,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
         if(intent.getBooleanExtra(JoinGameActivity.CREATEDGAME, true))
         {
+            /*
             new CountDownTimer(86400000, 5000)
             {
                 @Override
@@ -82,6 +83,8 @@ public class GamePlayActivity extends AppCompatActivity {
                     }).start();
                 }
             }.start();
+
+             */
         }
     }
 
@@ -162,7 +165,7 @@ public class GamePlayActivity extends AppCompatActivity {
                 // Reset game here
                 /////////////////
 
-
+                /*
                 runOnUiThread(new Runnable()
                 {
                     @Override
@@ -187,7 +190,7 @@ public class GamePlayActivity extends AppCompatActivity {
                                                         intent.getStringExtra(JoinGameActivity.PASSWORD),
                                                         "2");
 
-                                         */
+
 
                                         onRequestGameState(getView());
                                     }
@@ -196,6 +199,7 @@ public class GamePlayActivity extends AppCompatActivity {
                         }.start();
                     }
                 });
+                */
             }
         }).start();
     }
