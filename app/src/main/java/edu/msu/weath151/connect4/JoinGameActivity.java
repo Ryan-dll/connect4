@@ -34,6 +34,8 @@ public class JoinGameActivity extends AppCompatActivity implements ListenerGameC
     public static String GAMEID = "gameid";
     public static String USERNAME = "usernamefromJoinGame";
     public static String PASSWORD = "passwordfromJoinGame";
+    public static String USERNAME2 = "username2";
+    public static String CREATEDGAME = "createdgame";
 
     @Override
     public void onFinished(int game, int user) {
@@ -42,6 +44,7 @@ public class JoinGameActivity extends AppCompatActivity implements ListenerGameC
         intent.putExtra(GAMEID, game);
         intent.putExtra(USERNAME, getIntent().getStringExtra(MainActivity.USERNAME));
         intent.putExtra(PASSWORD, getIntent().getStringExtra(MainActivity.PASSWORD));
+        intent.putExtra(CREATEDGAME, true);
 
         final Intent finalIntent = intent;
 

@@ -112,6 +112,7 @@ public class JoiningDlg extends DialogFragment {
                     intent.putExtra(GAMEID, Integer.parseInt(catId));
                     intent.putExtra(JoinGameActivity.USERNAME, USER);
                     intent.putExtra(JoinGameActivity.PASSWORD, PASS);
+                    intent.putExtra(JoinGameActivity.CREATEDGAME, false);
 
                     final Intent finalIntent = intent;
 

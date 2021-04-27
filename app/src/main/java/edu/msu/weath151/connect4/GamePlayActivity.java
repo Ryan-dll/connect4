@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,11 +34,11 @@ public class GamePlayActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         GAME_ID = intent.getStringExtra(GAMEID);
-        /*
-        String player1Name = intent.getStringExtra(MainActivity.USERNAME);
-        String player2Name = intent.getStringExtra(MainActivity.PASSWORD);
-        player1_Name = intent.getStringExtra(MainActivity.USERNAME);
-        player2_Name = intent.getStringExtra(MainActivity.PASSWORD);
+
+        String player1Name = intent.getStringExtra(JoinGameActivity.USERNAME);
+        String player2Name = "Opponent";
+        player1_Name = intent.getStringExtra(JoinGameActivity.USERNAME);
+        player2_Name = "Opponent";
         TextView player1 = (TextView)findViewById(R.id.textView);
         TextView player2 = (TextView)findViewById(R.id.textView2);
         getView().getBoard().setNames(player1Name,player2Name);
@@ -52,11 +53,35 @@ public class GamePlayActivity extends AppCompatActivity {
         player1.setText(player1Name);
         player2.setText(player2Name);
 
-         */
-
         if(savedInstanceState != null)
         {
             getView().getBoard().onRestoreState(this ,savedInstanceState);
+        }
+
+        if(intent.getBooleanExtra(JoinGameActivity.CREATEDGAME, true))
+        {
+            new CountDownTimer(86400000, 5000)
+            {
+                @Override
+                public void onFinish() {
+                    // game simply times out
+                }
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    new Thread(new Runnable()
+                    {
+                        @Override
+                        public void run() {
+                            String newGame = new Cloud()
+                                    .getMove(intent.getIntExtra(JoinGameActivity.GAMEID, 0),
+                                            intent.getStringExtra(JoinGameActivity.USERNAME),
+                                            intent.getStringExtra(JoinGameActivity.PASSWORD),
+                                            "2");
+                        }
+                    }).start();
+                }
+            }.start();
         }
     }
 
@@ -131,6 +156,7 @@ public class GamePlayActivity extends AppCompatActivity {
             @Override
             public void run() {
                 // Temp set whichUser to 1
+
                 String newGameState = new Cloud()
                         .makeMove(intent.getIntExtra(JoinGameActivity.GAMEID, 0),
                                 intent.getStringExtra(JoinGameActivity.USERNAME),
@@ -145,7 +171,7 @@ public class GamePlayActivity extends AppCompatActivity {
                 {
                     @Override
                     public void run() {
-                        new CountDownTimer(15000, 5000)
+                        new CountDownTimer(86400000, 5000)
                         {
                             @Override
                             public void onFinish() {
@@ -158,11 +184,16 @@ public class GamePlayActivity extends AppCompatActivity {
                                 {
                                     @Override
                                     public void run() {
+                                        /*
                                         String newGame = new Cloud()
                                                 .getMove(intent.getIntExtra(JoinGameActivity.GAMEID, 0),
                                                         intent.getStringExtra(JoinGameActivity.USERNAME),
                                                         intent.getStringExtra(JoinGameActivity.PASSWORD),
                                                         "2");
+
+                                         */
+
+                                        onRequestGameState(getView());
                                     }
                                 }).start();
                             }

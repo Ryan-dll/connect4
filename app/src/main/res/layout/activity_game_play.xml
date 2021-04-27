@@ -94,6 +94,7 @@
             android:layout_above="@id/button"
             android:layout_centerHorizontal="true"
             android:onClick="makeMove"
+            android:textColor="@color/white"
             android:textSize="24sp"
             tools:text="@string/make_move" />
 
