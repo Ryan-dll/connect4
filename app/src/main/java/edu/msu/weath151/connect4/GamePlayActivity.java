@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
@@ -103,6 +104,39 @@ public class GamePlayActivity extends AppCompatActivity {
                                 intent.getStringExtra(JoinGameActivity.USERNAME),
                                 intent.getStringExtra(JoinGameActivity.PASSWORD),
                                 gamePlayView.getMove(),"1");
+
+                // Reset game here
+                /////////////////
+
+
+                runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run() {
+                        new CountDownTimer(15000, 5000)
+                        {
+                            @Override
+                            public void onFinish() {
+                                // game simply times out
+                            }
+
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                new Thread(new Runnable()
+                                {
+                                    @Override
+                                    public void run() {
+                                        String newGame = new Cloud()
+                                                .getMove(intent.getIntExtra(JoinGameActivity.GAMEID, 0),
+                                                        intent.getStringExtra(JoinGameActivity.USERNAME),
+                                                        intent.getStringExtra(JoinGameActivity.PASSWORD),
+                                                        "2");
+                                    }
+                                }).start();
+                            }
+                        }.start();
+                    }
+                });
             }
         }).start();
     }

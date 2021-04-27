@@ -31,6 +31,7 @@ public class Cloud {
     public static final String DISPLAY_GAME_PATH = "game-active-catalog.php";
     public static final String MAKE_MOVE_PATH = "make-move.php";
     public static final String JOIN_PATH = "game-join.php";
+    public static final String GET_MOVE_PATH = "get-move.php";
 
     private String USER = "";
     private String PASSWORD = "";
@@ -254,6 +255,36 @@ public class Cloud {
         {
             return "";
         }
+    }
+
+    public String getMove(int gameId, String user, String pass, String player)
+    {
+        try
+        {
+            Response<MadeMove> response= retrofit.create(ConnectService.class).
+                    getMove(user, MAGIC, pass, gameId, player).execute();
+
+            if(!response.isSuccessful())
+            {
+                return "";
+            }
+
+            if(response.body().getStatus().equals("yes"))
+            {
+                return response.body().getGame();
+            }
+
+        }
+        catch(IOException e)
+        {
+            return "";
+        }
+        catch(Exception e)
+        {
+            return "";
+        }
+
+        return "";
     }
 
     /**

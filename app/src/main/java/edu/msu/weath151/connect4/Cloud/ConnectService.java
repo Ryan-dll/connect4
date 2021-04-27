@@ -12,6 +12,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 import static edu.msu.weath151.connect4.Cloud.Cloud.DISPLAY_GAME_PATH;
+import static edu.msu.weath151.connect4.Cloud.Cloud.GET_MOVE_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.JOIN_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.LOGIN_ACCOUNT_PATH;
 import static edu.msu.weath151.connect4.Cloud.Cloud.MAKE_ACCOUNT_PATH;
@@ -66,5 +67,14 @@ public interface ConnectService {
             @Field("gameid") int gameId,
             @Field("player") String player,
             @Field("move") int move
+    );
+
+    @GET(GET_MOVE_PATH)
+    Call<MadeMove> getMove(
+            @Query("user") String user,
+            @Query("magic") String magic,
+            @Query("pass") String pass,
+            @Query("gameid") int gameId,
+            @Query("player") String player
     );
 }
