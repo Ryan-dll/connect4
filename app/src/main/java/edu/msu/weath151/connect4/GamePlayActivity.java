@@ -66,24 +66,20 @@ public class GamePlayActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Cloud cloud = new Cloud();
-                String result = cloud.grabGamestate(GAME_ID);
+                String result = cloud.grabGamestate("39");
 
 
                 if (result != null){
-                    getView().getBoard().updateGame(result);
-                }
-                else {
-/*                    runOnUiThread(new Runnable()
+                    runOnUiThread(new Runnable()
                     {
                         @Override
                         public void run() {
-                            Toast.makeText(
-                                    this,
-                                    R.string.join_fail_toast,
-                                    Toast.LENGTH_LONG)
-                                    .show();
+                            getView().getBoard().updateGame(result);
+                            getView().invalidate();
                         }
-                    });*/
+                    });
+                }
+                else {
                 }
             }
         }).start();

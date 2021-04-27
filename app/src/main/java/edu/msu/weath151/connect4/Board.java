@@ -249,9 +249,25 @@ public class Board {
     }
 
     public void updateGame(String gamestate) {
-        for (int i = 0; i < 7; i++){
-            for (int b = 0; i < 6; i++){
-
+        for (int i = 0; i < 6; i++){
+            for (int b = 0; i < 7; i++){
+                char c = gamestate.charAt(i+b);
+                if (c != '0'){
+                    Piece piece;
+                    if (c == '1'){
+                        piece = new Piece(this.context,
+                                R.drawable.spartan_green,
+                                board_pieces.get(b).get(i).getX(),
+                                board_pieces.get(b).get(i).getX());
+                    }
+                    else {
+                        piece = new Piece(this.context,
+                                R.drawable.spartan_white,
+                                board_pieces.get(b).get(i).getX(),
+                                board_pieces.get(b).get(i).getX());
+                    }
+                    board_pieces.get(b).get(i).setTaken(piece);
+                }
             }
         }
     }
