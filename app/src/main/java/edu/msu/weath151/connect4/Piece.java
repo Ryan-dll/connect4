@@ -106,10 +106,10 @@ public class Piece {
 
     public int getPositionSlot()
     {
-        int row = Math.round(x*6);
-        int coloumn = Math.round(y*6);
+        int row = Math.round(y*6);
+        int coloumn = Math.round(x*6);
 
-        return row*7 + 6;
+        return row*7 + coloumn;
     }
 
     /**
